@@ -19,7 +19,7 @@ where TMap : ClassMap<TModel>, new()
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    [HttpPost]
+    [HttpPost("new")]
     public virtual async Task<ActionResult<TModel>> CreateAsync(TDto request)
     {
         if (!ModelState.IsValid)
