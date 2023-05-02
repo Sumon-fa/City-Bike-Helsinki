@@ -27,6 +27,17 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Journey>()
+                    .HasIndex(j => new
+                    {
+                        j.Departure,
+                        j.DepartureStationId,
+                        j.DepartureStationName,
+                        j.Return,
+                        j.ReturnStationId,
+                        j.ReturnStationName
+                    });
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;

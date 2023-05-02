@@ -10,18 +10,18 @@ where TDto : BaseDTO<TModel>
 where TMap : ClassMap<TModel>, new()
 
 {
- protected readonly AppDbContext _dbContext;
- public BaseService(AppDbContext dbContext)
- {
-  _dbContext = dbContext;
- }
+    protected readonly AppDbContext _dbContext;
+    public BaseService(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
- public async Task<TModel?> CreateAsync(TDto request)
- {
-  var item = new TModel();
-  await request.UpdateModelAsync(item, _dbContext);
-  _dbContext.Add(item);
-  await _dbContext.SaveChangesAsync();
-  return item;
- }
+    public async Task<TModel?> CreateAsync(TDto request)
+    {
+        var item = new TModel();
+        await request.UpdateModelAsync(item, _dbContext);
+        _dbContext.Add(item);
+        await _dbContext.SaveChangesAsync();
+        return item;
+    }
 }
