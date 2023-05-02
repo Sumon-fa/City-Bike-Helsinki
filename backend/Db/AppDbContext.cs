@@ -1,4 +1,6 @@
 namespace Backend.Db;
+
+using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
@@ -26,4 +28,6 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<Journey> Journeys { get; set; } = null!;
 }
