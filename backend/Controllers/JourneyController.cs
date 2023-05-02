@@ -14,7 +14,7 @@ public class JourneyController : BaseController<Journey, JourneyDTO, JourneyCsvM
         _service = service;
     }
 
-    [HttpGet]
+    [HttpGet("/api/v1/journeys")]
     public async Task<IActionResult> GetAllAsync([FromQuery] FilterDTO filter)
     {
         return Ok(await _service.GetAllAsync(filter));
