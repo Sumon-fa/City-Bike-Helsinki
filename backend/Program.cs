@@ -37,6 +37,7 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
     var config = scope.ServiceProvider.GetService<IConfiguration>();
+
     if (dbContext is not null)
     {
         dbContext.Database.EnsureDeleted();

@@ -36,6 +36,7 @@ public class StationDTO : BaseDTO<Station>
         var existingStation = await dbContext.Stations.FirstOrDefaultAsync(
           s => s.ID == ID
         );
+
         if (existingStation is not null)
         {
             throw ServiceException.BadRequest($"ID {ID} already exists");

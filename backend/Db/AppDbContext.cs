@@ -19,7 +19,9 @@ public class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
+
         var connString = _config.GetConnectionString("DefaultConnection");
+
         optionsBuilder.UseNpgsql(connString).
         UseSnakeCaseNamingConvention();
     }
@@ -27,6 +29,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Journey>()
                     .HasIndex(j => new
                     {
@@ -37,6 +40,7 @@ public class AppDbContext : DbContext
                         j.ReturnStationId,
                         j.ReturnStationName
                     });
+
         modelBuilder.Entity<Station>()
                     .HasIndex(s => s.ID).IsUnique();
     }

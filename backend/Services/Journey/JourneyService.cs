@@ -21,6 +21,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
 
     {
         var query = _dbContext.Journeys.AsQueryable();
+
         if (!string.IsNullOrEmpty(filter.SearchKeyWord))
         {
             query = query.Where(j => j.DepartureStationName.ToLower().StartsWith(filter.SearchKeyWord.ToLower()));
@@ -38,9 +39,14 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
             CoveredDistance = journey.CoveredDistance / 1000,
             Duration = journey.Duration / 60
         });
-        var result = await query.AsNoTracking().OrderByDescending(s => s.Departure)
-                                .Skip((filter.Page - 1) * filter.PageSize)
-                                .Take(filter.PageSize).ToListAsync();
+
+        var result = await query
+            .AsNoTracking()
+            .OrderByDescending(s => s.Departure)
+            .Skip((filter.Page - 1) * filter.PageSize)
+            .Take(filter.PageSize)
+            .ToListAsync();
+
         if (result is null || result.Count < 1)
         {
             throw ServiceException.NotFound("Journey is not found.");
@@ -59,11 +65,16 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
         {
             using var streamReader = new StreamReader(request.File.OpenReadStream());
             using var csvReader = new CsvReader(streamReader, true);
+
             csvReader.Configuration.Encoding = Encoding.UTF8;
             csvReader.Configuration.TrimOptions = TrimOptions.Trim;
             csvReader.Configuration.ShouldSkipRecord = record => record.Any(string.IsNullOrWhiteSpace);
             csvReader.Configuration.RegisterClassMap<JourneyCsvMap>();
-            var records = csvReader.GetRecords<Journey>().Where(j => j.Duration >= 10 && j.CoveredDistance >= 10).ToList();
+
+            var records = csvReader.GetRecords<Journey>()
+                .Where(j => j.Duration >= 10 && j.CoveredDistance >= 10)
+                .ToList();
+
             records = records.Select(j => new Journey
             {
                 Id = Guid.NewGuid(),
@@ -75,9 +86,13 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
                 ReturnStationName = j.ReturnStationName,
                 CoveredDistance = j.CoveredDistance,
                 Duration = j.Duration
-            }).ToList();
+            })
+            .ToList();
+
             await _dbContext.BulkInsertAsync(records);
+
             var duplicates = await RemoveDuplicateJourneysAsync();
+
             return new ImportResponseDTO
             {
                 SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count)} data has been uploaded.",
@@ -90,6 +105,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
             var lineNumber = ex.ReadingContext.RawRow;
             var columnNumber = ex.ReadingContext.CurrentIndex + 1;
             var errorMessage = $"Error on line {lineNumber}, column {columnNumber}: {ex.Message}";
+
             throw ServiceException.BadRequest(errorMessage);
         }
     }
@@ -97,11 +113,23 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
     private async Task<ICollection<Journey>> RemoveDuplicateJourneysAsync()
     {
         var duplicates = await _dbContext.Journeys.ToListAsync();
-        var distinctJourneys = duplicates
-            .GroupBy(t => new { t.DepartureStationId, t.Departure, t.DepartureStationName, t.Return, t.ReturnStationName })
-            .Select(g => g.OrderByDescending(t => t.Id).First());
-        var journeysToDelete = duplicates.Except(distinctJourneys).ToList();
+
+        var distinctJourney = duplicates
+            .GroupBy(t => new
+            {
+                t.DepartureStationId,
+                t.Departure,
+                t.DepartureStationName,
+                t.Return,
+                t.ReturnStationName
+            })
+            .Select(g => g.OrderByDescending(t => t.Id)
+            .First());
+
+        var journeysToDelete = duplicates.Except(distinctJourney).ToList();
+
         await _dbContext.BulkDeleteAsync(journeysToDelete);
+
         return journeysToDelete;
     }
 }

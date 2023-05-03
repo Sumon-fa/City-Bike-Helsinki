@@ -37,6 +37,7 @@ public class StationController : BaseController<Station, StationDTO, StationCsvM
                 .SelectMany(v => v.Errors)
                 .Select(e => e.ErrorMessage)
                 .ToList();
+
             throw ServiceException.BadRequest(string.Join("; ", errors));
         }
 
@@ -46,6 +47,7 @@ public class StationController : BaseController<Station, StationDTO, StationCsvM
         }
 
         var result = await _service.ImportStationCsvDataAsync(request);
+
         return Ok(result);
     }
 }

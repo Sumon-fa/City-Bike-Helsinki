@@ -27,19 +27,23 @@ public class JourneyDTO : BaseDTO<Journey>
 
     public override async Task<Journey> UpdateModelAsync(Journey model, AppDbContext dbContext)
     {
-        var existingDepartureJourneys = await dbContext.Journeys
-            .FirstOrDefaultAsync(j => j.Departure == Departure &&
+        var existingDepartureJourneys = await dbContext.Journeys.
+            FirstOrDefaultAsync(j =>
+            j.Departure == Departure &&
             j.DepartureStationId == DepartureStationId &&
             j.DepartureStationName == DepartureStationName);
+
         if (existingDepartureJourneys is not null)
         {
             throw ServiceException.BadRequest("Duplicate entry.Please check the Departure, DepartureStationId & DepartureStationName ");
         }
 
         var existingReturnJourneys = await dbContext.Journeys
-            .FirstOrDefaultAsync(j => j.Return == Return &&
+            .FirstOrDefaultAsync(j =>
+            j.Return == Return &&
             j.ReturnStationId == ReturnStationId &&
             j.ReturnStationName == ReturnStationName);
+
         if (existingReturnJourneys is not null)
         {
             throw ServiceException.BadRequest("Duplicate entry.Please check the Return, ReturnStationId & ReturnStationName ");

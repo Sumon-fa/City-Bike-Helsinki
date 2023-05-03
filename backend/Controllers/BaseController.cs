@@ -28,6 +28,7 @@ where TMap : ClassMap<TModel>, new()
                 .SelectMany(v => v.Errors)
                 .Select(e => e.ErrorMessage)
                 .ToList();
+
             throw ServiceException.BadRequest(string.Join("; ", errors));
         }
 

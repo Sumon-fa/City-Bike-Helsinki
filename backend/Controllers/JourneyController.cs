@@ -31,6 +31,7 @@ public class JourneyController : BaseController<Journey, JourneyDTO, JourneyCsvM
                 .SelectMany(v => v.Errors)
                 .Select(e => e.ErrorMessage)
                 .ToList();
+
             throw ServiceException.BadRequest(string.Join("; ", errors));
         }
 
@@ -40,6 +41,7 @@ public class JourneyController : BaseController<Journey, JourneyDTO, JourneyCsvM
         }
 
         var result = await _service.ImportCsvDataAsync(request);
+
         return Ok(result);
     }
 }
