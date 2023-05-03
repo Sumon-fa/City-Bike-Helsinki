@@ -1,5 +1,6 @@
 namespace Backend.Controllers;
 
+using Backend.Common;
 using Backend.DTOs;
 using Backend.Mapper;
 using Backend.Models;
@@ -18,5 +19,18 @@ public class JourneyController : BaseController<Journey, JourneyDTO, JourneyCsvM
     public async Task<IActionResult> GetAllAsync([FromQuery] FilterDTO filter)
     {
         return Ok(await _service.GetAllAsync(filter));
+    }
+
+    [HttpPost("import")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> ImportCsvDataAsync([FromForm] ImportDTO request)
+    {
+        if (request.File == null || request.File.Length == 0)
+        {
+            throw ServiceException.BadRequest("File is empty.");
+        }
+
+        var result = await _service.ImportCsvDataAsync(request);
+        return Ok(result);
     }
 }

@@ -2,6 +2,7 @@ using Backend.Db;
 using Backend.Middlware;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 options.SuppressModelStateInvalidFilter = true);
+
+builder.Services.Configure<KestrelServerOptions>(options => options.Limits.MaxRequestBodySize = 167772160);
+builder.Services.Configure<IISServerOptions>(options => options.MaxRequestBodySize = 167772160);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
