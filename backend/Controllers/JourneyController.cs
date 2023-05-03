@@ -25,6 +25,15 @@ public class JourneyController : BaseController<Journey, JourneyDTO, JourneyCsvM
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> ImportCsvDataAsync([FromForm] ImportDTO request)
     {
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+            throw ServiceException.BadRequest(string.Join("; ", errors));
+        }
+
         if (request.File == null || request.File.Length == 0)
         {
             throw ServiceException.BadRequest("File is empty.");

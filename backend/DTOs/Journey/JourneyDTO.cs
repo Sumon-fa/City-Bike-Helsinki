@@ -11,11 +11,14 @@ public class JourneyDTO : BaseDTO<Journey>
     public Guid Id { get; set; }
     [DepartureTime]
     public DateTime Departure { get; set; }
+    [Required]
     public string DepartureStationId { get; set; } = null!;
+    [Required]
     public string DepartureStationName { get; set; } = null!;
     [ReturnGreaterThanDeparture]
     public DateTime Return { get; set; }
     public string ReturnStationId { get; set; } = null!;
+    [Required]
     public string ReturnStationName { get; set; } = null!;
     [Range(10, double.MaxValue, ErrorMessage = "Covered distance must be at least 10 meters.")]
     public double CoveredDistance { get; set; }
@@ -44,11 +47,11 @@ public class JourneyDTO : BaseDTO<Journey>
 
         model.Id = Id;
         model.Departure = Departure;
-        model.DepartureStationName = DepartureStationName;
-        model.DepartureStationId = DepartureStationId;
+        model.DepartureStationName = DepartureStationName.Trim();
+        model.DepartureStationId = DepartureStationId.Trim();
         model.Return = Return;
-        model.ReturnStationName = ReturnStationName;
-        model.ReturnStationId = ReturnStationId;
+        model.ReturnStationName = ReturnStationName.Trim();
+        model.ReturnStationId = ReturnStationId.Trim();
         model.CoveredDistance = CoveredDistance;
         model.Duration = Duration;
         return model;

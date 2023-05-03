@@ -38,7 +38,7 @@ public class AppDbContext : DbContext
                         j.ReturnStationName
                     });
         modelBuilder.Entity<Station>()
-                    .HasIndex(s => s.ID);
+                    .HasIndex(s => s.ID).IsUnique();
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
