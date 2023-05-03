@@ -27,7 +27,6 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         modelBuilder.Entity<Journey>()
                     .HasIndex(j => new
                     {
@@ -41,4 +40,5 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
+    public DbSet<Station> Stations { get; set; } = null!;
 }
