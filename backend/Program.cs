@@ -22,6 +22,8 @@ builder.Services.AddSwaggerGen();
 
 // Register the Services for Dependency i
 builder.Services.AddScoped<IJourneyService, JourneyService>();
+builder.Services.AddScoped<IStationService, StationService>();
+
 builder.Services.AddTransient<ErrorHandlerMiddleware>();
 
 var app = builder.Build();
