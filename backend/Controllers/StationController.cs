@@ -18,4 +18,10 @@ public class StationController : BaseController<Station, StationDTO, StationCsvM
     {
         return Ok(await _service.GetAllAsync(filter));
     }
+
+    [HttpGet("{fid}")]
+    public async Task<ActionResult<StationViewResponseDTO>> GetSingleStation(int fid)
+    {
+        return Ok(await _service.GetSingleStationAsync(fid));
+    }
 }

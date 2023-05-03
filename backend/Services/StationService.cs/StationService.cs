@@ -1,15 +1,11 @@
-using System.Text;
+namespace Backend.Services;
+
 using Backend.Common;
 using Backend.Db;
 using Backend.DTOs;
 using Backend.Mapper;
 using Backend.Models;
-using CsvHelper;
-using CsvHelper.Configuration;
-using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
-
-namespace Backend.Services;
 
 public class StationService : BaseService<Station, StationDTO, StationCsvMap>, IStationService
 {
@@ -22,7 +18,7 @@ public class StationService : BaseService<Station, StationDTO, StationCsvMap>, I
         var query = _dbContext.Stations.AsQueryable();
         if (!string.IsNullOrEmpty(filter.SearchKeyWord))
         {
-            query = query.Where(s => s.Name.ToLower().StartsWith(filter.SearchKeyWord.ToLower()));
+            query = query.Where(s => s.Nimi.ToLower().StartsWith(filter.SearchKeyWord.ToLower()));
         }
 
         var result = await query.AsNoTracking().OrderByDescending(s => s.FID)
@@ -40,9 +36,23 @@ public class StationService : BaseService<Station, StationDTO, StationCsvMap>, I
         };
     }
 
-    public Task<StationViewResponseDTO> GetSingleStationAsync(int fid)
+    public async Task<StationViewResponseDTO> GetSingleStationAsync(int fid)
     {
-        throw new NotImplementedException();
+        var station = await _dbContext.Stations.FindAsync(fid);
+        if (station == null)
+        {
+            throw ServiceException.NotFound("Station not found. Please check and try again.");
+        }
+
+        var startingJourney = await _dbContext.Journeys.Where(j => j.DepartureStationId == station.ID).ToListAsync();
+        var endingJourney = await _dbContext.Journeys.Where(j => j.ReturnStationId == station.ID).ToListAsync();
+        return new StationViewResponseDTO
+        {
+            Name = station.Nimi,
+            Address = $"{station.Osoite}, {station.Kaupunki}",
+            NumOfStartingJourney = startingJourney.Count,
+            NumOfEndingJourney = endingJourney.Count
+        };
     }
 
     public Task<ImportResponseDTO> ImportStationCsvDataAsync(ImportDTO request)
