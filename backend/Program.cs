@@ -20,6 +20,12 @@ builder.Services.Configure<IISServerOptions>(options => options.MaxRequestBodySi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(p => p.AddPolicy("corsPolicy", build =>
+{
+    build.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+})
+);
+
 // Register the Services for Dependency i
 builder.Services.AddScoped<IJourneyService, JourneyService>();
 builder.Services.AddScoped<IStationService, StationService>();
@@ -48,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
+
+app.UseCors("corsPolicy");
 
 app.UseAuthorization();
 
