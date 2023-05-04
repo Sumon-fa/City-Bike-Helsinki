@@ -22,9 +22,9 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
     {
         var query = _dbContext.Journeys.AsQueryable();
 
-        if (!string.IsNullOrEmpty(filter.SearchKeyWord))
+        if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
-            query = query.Where(j => j.DepartureStationName.ToLower().StartsWith(filter.SearchKeyWord.ToLower()));
+            query = query.Where(j => j.DepartureStationName.StartsWith(filter.SearchKeyWord.Trim()));
         }
 
         query = query.Select(journey => new Journey
@@ -39,6 +39,8 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
             CoveredDistance = journey.CoveredDistance / 1000,
             Duration = journey.Duration / 60
         });
+
+        var totalItems = await query.CountAsync();
 
         var result = await query
             .AsNoTracking()
@@ -55,7 +57,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
         return new GetAllResultResponseDTO<Journey>
         {
             Result = result,
-            TotalItems = await query.CountAsync()
+            TotalItems = totalItems
         };
     }
 
@@ -95,9 +97,9 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
 
             return new ImportResponseDTO
             {
-                SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count)} data has been uploaded.",
+                SuccessMessage = $"{Math.Abs(records.Count - 0)} data has been uploaded.",
                 StatusCode = 200,
-                DeletedData = $"{duplicates.Count} Duplicate data has been deleted Successfully!"
+                DeletedData = $"{0} Duplicate data has been deleted Successfully!"
             };
         }
         catch (CsvHelper.TypeConversion.TypeConverterException ex)

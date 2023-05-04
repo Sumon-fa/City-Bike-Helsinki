@@ -96,3 +96,6 @@ dotnet_diagnostic.IDE0037.severity = none
 
 # Field should be private
 dotnet_diagnostic.SA1401.severity = None
+
+# Partial elements should be documented 
+dotnet_diagnostic.SA1601.severity = None
