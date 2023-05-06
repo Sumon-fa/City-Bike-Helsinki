@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseKestrel(options =>
+{
+ options.ListenLocalhost(5000);
+
+// options.ListenLocalhost(5001, options => options.UseHttps());
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>();
@@ -51,11 +58,11 @@ if (app.Environment.IsDevelopment())
     }
 }
 
+app.UseCors("corsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
-app.UseCors("corsPolicy");
 
 app.UseAuthorization();
 
