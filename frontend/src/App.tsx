@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch } from './hooks/reduxHook'
-import { getAllJourneys } from './redux/methods/journeyMethods'
+import React from 'react'
 import Navbar from './components/Header/Navbar'
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import Footer from './components/Footer/Footer'
 
 function App() {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    const filter = {
-      title: '',
-      pageNumber: 1,
-    }
-    dispatch(getAllJourneys(filter))
-  }, [])
-
   return (
-    <div>
-      <Navbar />
-    </div>
+    <>
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </main>
+      <footer></footer>
+    </>
   )
 }
 

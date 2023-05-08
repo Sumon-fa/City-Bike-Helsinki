@@ -6,15 +6,7 @@ export const MyStyledButton = styled('button')(({ theme }) => ({
 }))
 
 export const MyStyledIconButton = styled(IconButton)({
-  marginLeft: 'auto !important',
-  height: '50px !important',
-  width: '50px !important',
-})
-
-export const MyStyledListItem = styled(IconButton)({
-  fontSize: '1.2rem',
-  fontFamily: 'Raleway ',
-  textTransform: 'none',
-  color: '#fff',
-  fontWeight: 700,
+  marginLeft: 'auto',
+  height: '50px',
+  width: '50px',
 })

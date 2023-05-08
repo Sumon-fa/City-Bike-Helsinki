@@ -16,15 +16,24 @@ import { Menu } from '@mui/icons-material'
 import theme from '../Ui/theme'
 import { navData } from '../../data/navData'
 import { MyStyledIconButton } from './navStyle'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   const matches = useMediaQuery(theme.breakpoints.down('md'))
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [value, setValue] = React.useState(0)
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+    console.log(newValue)
+  }
 
   const tabs = (
     <Fragment>
       <Tabs
+        value={value}
+        onChange={handleChange}
         sx={{
           marginLeft: 'auto',
         }}
@@ -47,8 +56,10 @@ const Navbar = () => {
                 fontSize: '1rem',
               }}
               key={i}
-              href={nav.id}
+              to={nav.id}
               label={nav.label}
+              value={i}
+              component={NavLink}
             />
           )
         )}
@@ -64,7 +75,7 @@ const Navbar = () => {
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
         sx={{
-          '& .MuiDrawer-paper': { backgroundColor: '#0069ac', width: '30%' },
+          '& .MuiDrawer-paper': { backgroundColor: '#0069ac', width: '60%' },
         }}
       >
         <List>
@@ -76,7 +87,7 @@ const Navbar = () => {
               },
               i: number
             ) => (
-              <Link key={i} href={nav.id} underline='none'>
+              <Link key={i} to={nav.id} component={NavLink} underline='none'>
                 <ListItem
                   sx={{
                     borderBottom: '1px solid rgb(190 179 179 / 12%)',
@@ -91,12 +102,8 @@ const Navbar = () => {
           )}
         </List>
       </SwipeableDrawer>
-      <MyStyledIconButton>
-        <Menu
-          sx={{ height: '40px', width: '40px' }}
-          color='primary'
-          onClick={() => setOpenDrawer(!openDrawer)}
-        />
+      <MyStyledIconButton onClick={() => setOpenDrawer(!openDrawer)}>
+        <Menu sx={{ height: '40px', width: '40px' }} color='primary' />
       </MyStyledIconButton>
     </Fragment>
   )

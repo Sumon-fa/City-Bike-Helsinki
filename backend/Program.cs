@@ -8,9 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseKestrel(options =>
 {
- options.ListenLocalhost(5000);
+    options.ListenLocalhost(5000);
 
-// options.ListenLocalhost(5001, options => options.UseHttps());
+    // options.ListenLocalhost(5001, options => options.UseHttps());
 });
 
 // Add services to the container.

@@ -7,14 +7,19 @@ import { store } from './redux/store'
 import { Provider } from 'react-redux'
 import theme from './components/Ui/theme'
 import { ThemeProvider } from '@mui/material/styles'
+import { BrowserRouter } from 'react-router-dom'
+import { CssBaseline } from '@mui/material'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 )

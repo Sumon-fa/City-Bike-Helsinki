@@ -35,7 +35,6 @@ const journeySlice = createSlice({
       }
       if ('message' in action.payload) {
         state.isError = action.payload
-        console.log(state.isError)
         return state
       }
       state.journeys = action.payload.result
@@ -43,6 +42,14 @@ const journeySlice = createSlice({
       state.isLoading = false
       state.isError = null
       return state
+    })
+    build.addCase(getAllJourneys.rejected, (state, action: PayloadAction<any>) => {
+      state.isError = action.payload
+      state.isLoading = false
+    })
+    build.addCase(getAllJourneys.pending, (state) => {
+      state.isLoading = true
+      state.isError = null
     })
   },
 })
