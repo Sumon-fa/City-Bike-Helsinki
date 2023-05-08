@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '@mui/material/Table'
-import TableBody, { TableBodyTypeMap } from '@mui/material/TableBody'
+import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { CircularProgress, TableFooter, TablePagination } from '@mui/material'
+import { TableFooter, TablePagination } from '@mui/material'
 import TablePaginationActions from '../Ui/TablePaginationActions'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook'
 import { getAllJourneys } from '../../redux/methods/journeyMethods'
-import { MyStyledImg } from './journeyStyle'
+import { MyStyledImg, StyledTableCell, StyledTableRow } from './journeyStyle'
 import bikes from '../../assets/bikes.jpg'
+import theme from '../Ui/theme'
 
 export default function Journey() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
 
-  const { journeys, isLoading, isError, totalJourneys } = useAppSelector((state) => state.journey)
+  const { journeys, totalJourneys } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -46,51 +46,50 @@ export default function Journey() {
       <TableContainer
         component={Paper}
         sx={{
-          margin: '0 auto 50px auto',
-          maxWidth: '80%',
+          margin: '0 auto 60px auto',
+          width: 'max-content',
           overflow: 'hidden',
+          [theme.breakpoints.down('sm')]: {
+            width: '350px',
+          },
         }}
       >
-        {isLoading && (
-          <CircularProgress color='secondary' sx={{ display: 'flex', margin: 'auto' }} />
-        )}
-        <Table sx={{ minWidth: 600 }} aria-label='simple table'>
+        <Table aria-label='simple table'>
           <TableHead>
-            <TableRow>
-              <TableCell component='th' scope='row'>
+            <StyledTableRow>
+              <StyledTableCell component='th' scope='row'>
                 Departure
-              </TableCell>
-              <TableCell align='center'>Return</TableCell>
-              <TableCell align='center'>Covered Distance (m)</TableCell>
-              <TableCell align='center'>Duration (sec)</TableCell>
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell align='center'>Return</StyledTableCell>
+              <StyledTableCell align='center'>Covered Distance (m)</StyledTableCell>
+              <StyledTableCell align='center'>Duration (sec)</StyledTableCell>
+            </StyledTableRow>
           </TableHead>
-          {!isLoading && !isError && (
-            <TableBody>
-              {journeys.length > 0 &&
-                journeys.map((j) => (
-                  <TableRow key={j.id}>
-                    <TableCell component='th' scope='row'>
-                      {j.departureStationName}
-                    </TableCell>
-                    <TableCell align='center'>{j.returnStationName}</TableCell>
-                    <TableCell align='center'>{j.coveredDistance}</TableCell>
-                    <TableCell align='center'>{j.duration}</TableCell>
-                  </TableRow>
-                ))}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          )}
+
+          <TableBody>
+            {journeys.length > 0 &&
+              journeys.map((j) => (
+                <StyledTableRow key={j.id}>
+                  <StyledTableCell component='th' scope='row'>
+                    {j.departureStationName}
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>{j.returnStationName}</StyledTableCell>
+                  <StyledTableCell align='center'>{j.coveredDistance.toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align='center'>{j.duration}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            {emptyRows > 0 && (
+              <StyledTableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </StyledTableRow>
+            )}
+          </TableBody>
 
           <TableFooter>
-            <TableRow>
+            <StyledTableRow>
               <TablePagination
                 rowsPerPageOptions={[8]}
-                colSpan={3}
+                colSpan={4}
                 count={totalJourneys}
                 rowsPerPage={rowsPerPage}
                 page={page}
@@ -104,7 +103,7 @@ export default function Journey() {
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
               />
-            </TableRow>
+            </StyledTableRow>
           </TableFooter>
         </Table>
       </TableContainer>
