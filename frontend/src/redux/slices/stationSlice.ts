@@ -1,16 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { GetAllStations, StationState } from '../../types/station'
-import { getAllStations } from '../methods/stationMethods'
+import { GetAllStations, StationDetails, StationState } from '../../types/station'
+import { getAllStations, getStationDetails } from '../methods/stationMethods'
 
 const initialState: StationState = {
   stations: [],
   totalStations: 0,
   station: {
-    fid: null,
-    id: '',
-    nimi: '',
-    osoite: '',
-    kaupunki: '',
+    name: '',
+    address: '',
+    numOfStartingJourney: 0,
+    numOfEndingJourney: 0,
     x: 0,
     y: 0,
   },
@@ -49,8 +48,30 @@ const stationSlice = createSlice({
       state.isLoading = true
       state.isError = null
     })
+
+    build.addCase(getStationDetails.fulfilled, (state, action: PayloadAction<StationDetails>) => {
+      if (!action.payload) {
+        return state
+      }
+      if ('message' in action.payload) {
+        state.isError = action.payload
+        return state
+      }
+      state.station = action.payload
+      state.isLoading = false
+      state.isError = null
+      return state
+    })
+    build.addCase(getStationDetails.rejected, (state, action: PayloadAction<any>) => {
+      state.isError = action.payload
+      state.isLoading = false
+    })
+    build.addCase(getStationDetails.pending, (state) => {
+      state.isLoading = true
+      state.isError = null
+    })
   },
 })
-export const journeyActions = stationSlice.actions
+export const stationActions = stationSlice.actions
 
 export default stationSlice

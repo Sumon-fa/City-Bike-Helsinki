@@ -5,12 +5,13 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { TableFooter, TablePagination } from '@mui/material'
+import { Link, TableFooter, TablePagination } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllStations } from '../../../redux/methods/stationMethods'
 import theme from '../../Ui/theme'
 import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
 import TablePaginationActions from '../../Ui/TablePaginationActions'
+import { NavLink } from 'react-router-dom'
 
 function AllStations() {
   const [page, setPage] = useState(0)
@@ -62,8 +63,7 @@ function AllStations() {
               </StyledTableCell>
               <StyledTableCell align='center'>Address</StyledTableCell>
               <StyledTableCell align='center'>City</StyledTableCell>
-              <StyledTableCell align='center'>X</StyledTableCell>
-              <StyledTableCell align='center'>Y</StyledTableCell>
+              <StyledTableCell align='center'>Capacity</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -71,12 +71,18 @@ function AllStations() {
               stations.map((s) => (
                 <StyledTableRow key={s.fid}>
                   <StyledTableCell component='th' scope='row'>
-                    {s.nimi}
+                    <Link
+                      to={`/station/${s.fid}`}
+                      component={NavLink}
+                      color='secondary'
+                      underline='none'
+                    >
+                      {s.nimi}
+                    </Link>
                   </StyledTableCell>
                   <StyledTableCell align='center'>{s.osoite}</StyledTableCell>
                   <StyledTableCell align='center'>{s.kaupunki}</StyledTableCell>
-                  <StyledTableCell align='center'>{s.x}</StyledTableCell>
-                  <StyledTableCell align='center'>{s.y}</StyledTableCell>
+                  <StyledTableCell align='center'>{s.kapasiteet}</StyledTableCell>
                 </StyledTableRow>
               ))}
             {emptyRows > 0 && (

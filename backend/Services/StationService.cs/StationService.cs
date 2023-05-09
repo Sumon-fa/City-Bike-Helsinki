@@ -62,7 +62,9 @@ public class StationService : BaseService<Station, StationDTO, StationCsvMap>, I
             Name = station.Nimi,
             Address = $"{station.Osoite}, {station.Kaupunki}",
             NumOfStartingJourney = startingJourney.Count,
-            NumOfEndingJourney = endingJourney.Count
+            NumOfEndingJourney = endingJourney.Count,
+            X = station.X,
+            Y = station.Y
         };
     }
 
