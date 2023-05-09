@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class DepartureTimeAttribute : ValidationAttribute
 {
-    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         if (value is null)
         {
@@ -19,6 +19,6 @@ public class DepartureTimeAttribute : ValidationAttribute
             return new ValidationResult("Departure must be at least 10 minutes after the current time.");
         }
 
-        return ValidationResult.Success!;
+        return ValidationResult.Success;
     }
 }

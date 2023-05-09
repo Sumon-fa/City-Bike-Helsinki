@@ -1,14 +1,14 @@
 export const navData = [
   {
     label: 'Home',
-    id: '/',
+    url: '/',
   },
   {
     label: 'Station',
-    id: '#station',
+    url: '/stations',
   },
   {
     label: 'Dashboard',
-    id: '#station',
+    url: '#station',
   },
 ]

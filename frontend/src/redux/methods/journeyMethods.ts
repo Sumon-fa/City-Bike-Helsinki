@@ -8,13 +8,12 @@ export const getAllJourneys = createAsyncThunk(
   async (filter: { title: string; pageNumber: number }, thunkApi) => {
     try {
       const pageSize = 8
-      let link = 'http://localhost:5000/api/v1/journeys'
+      let link = '/api/v1/journeys'
       if (filter) {
-        link = `http://localhost:5000/api/v1/journeys?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.title}`
+        link = `/api/v1/journeys?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.title}`
       }
 
       const response: AxiosResponse<GetAllJourneys, GetAllJourneys> = await axiosInstance.get(link)
-      console.log(response.data)
       return response.data
     } catch (err: any) {
       return thunkApi.rejectWithValue({ message: err.message })

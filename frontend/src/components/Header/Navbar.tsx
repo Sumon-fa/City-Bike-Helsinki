@@ -19,14 +19,13 @@ import { MyStyledIconButton } from './navStyle'
 import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
-  const matches = useMediaQuery(theme.breakpoints.down('md'))
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
   const [openDrawer, setOpenDrawer] = useState(false)
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
-    console.log(newValue)
   }
 
   const tabs = (
@@ -42,7 +41,7 @@ const Navbar = () => {
         {navData.map(
           (
             nav: {
-              id: string
+              url: string
               label: string
             },
             i: number
@@ -56,7 +55,7 @@ const Navbar = () => {
                 fontSize: '1rem',
               }}
               key={i}
-              to={nav.id}
+              to={nav.url}
               label={nav.label}
               value={i}
               component={NavLink}
@@ -82,12 +81,12 @@ const Navbar = () => {
           {navData.map(
             (
               nav: {
-                id: string
+                url: string
                 label: string
               },
               i: number
             ) => (
-              <Link key={i} to={nav.id} component={NavLink} underline='none'>
+              <Link key={i} to={nav.url} component={NavLink} underline='none'>
                 <ListItem
                   sx={{
                     borderBottom: '1px solid rgb(190 179 179 / 12%)',
@@ -118,7 +117,7 @@ const Navbar = () => {
             marginLeft: '110px',
             fontWeight: 'lighter',
             fontFamily: 'Quicksand',
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.down('sm')]: {
               fontSize: '1.5rem',
               marginLeft: '50px',
             },

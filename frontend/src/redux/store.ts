@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import journeySlice from './slices/journeySlice'
+import stationSlice from './slices/stationSlice'
 
 export const store = configureStore({
   reducer: {
     journey: journeySlice.reducer,
+    station: stationSlice.reducer,
   },
 })
 

@@ -21,9 +21,6 @@ const theme = createTheme({
     secondary: {
       main: '#1281d5',
     },
-    common: {
-      black: '#1281d5',
-    },
   },
   customColors: {
     blue: '#1281d5',

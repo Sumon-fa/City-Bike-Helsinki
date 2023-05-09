@@ -5,19 +5,20 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { TableFooter, TablePagination } from '@mui/material'
+import { Alert, TableFooter, TablePagination } from '@mui/material'
 import TablePaginationActions from '../Ui/TablePaginationActions'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook'
 import { getAllJourneys } from '../../redux/methods/journeyMethods'
-import { MyStyledImg, StyledTableCell, StyledTableRow } from './journeyStyle'
+import { MyStyledImg } from './styles'
 import bikes from '../../assets/bikes.jpg'
 import theme from '../Ui/theme'
+import { StyledTableCell, StyledTableRow } from '../Ui/tableStyles'
 
 export default function Journey() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
 
-  const { journeys, totalJourneys } = useAppSelector((state) => state.journey)
+  const { journeys, totalJourneys, isError } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -29,6 +30,7 @@ export default function Journey() {
       title: '',
       pageNumber: page + 1,
     }
+
     dispatch(getAllJourneys(filter))
   }, [page])
 
@@ -43,14 +45,16 @@ export default function Journey() {
   return (
     <>
       <MyStyledImg src={bikes} alt='bike-image' loading='lazy' />
+      {isError && <Alert severity='error'>This is an error alert — check it out!</Alert>}
       <TableContainer
         component={Paper}
         sx={{
-          margin: '0 auto 60px auto',
+          margin: '0 auto 120px auto',
           width: 'max-content',
           overflow: 'hidden',
           [theme.breakpoints.down('sm')]: {
             width: '350px',
+            marginBottom: '60px',
           },
         }}
       >
@@ -65,7 +69,6 @@ export default function Journey() {
               <StyledTableCell align='center'>Duration (sec)</StyledTableCell>
             </StyledTableRow>
           </TableHead>
-
           <TableBody>
             {journeys.length > 0 &&
               journeys.map((j) => (
@@ -84,7 +87,6 @@ export default function Journey() {
               </StyledTableRow>
             )}
           </TableBody>
-
           <TableFooter>
             <StyledTableRow>
               <TablePagination
