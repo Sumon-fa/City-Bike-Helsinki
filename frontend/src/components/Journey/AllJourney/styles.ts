@@ -7,9 +7,9 @@ export const MyStyledImg = styled('img')(({ theme }) => ({
   padding: 0,
   boxSizing: 'border-box',
   display: 'flex',
-  margin: '171px auto 125px auto',
+  margin: '120px auto 125px auto',
   [theme.breakpoints.down('md')]: {
     height: '100px',
-    margin: '140px auto 70px auto',
+    margin: '60px auto 70px auto',
   },
 }))

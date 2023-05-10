@@ -38,30 +38,31 @@ const Navbar = () => {
         }}
         indicatorColor='secondary'
       >
-        {navData.map(
-          (
-            nav: {
-              url: string
-              label: string
-            },
-            i: number
-          ) => (
-            <Tab
-              sx={{
-                fontFamily: 'Raleway ',
-                textTransform: 'none',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: '1rem',
-              }}
-              key={i}
-              to={nav.url}
-              label={nav.label}
-              value={i}
-              component={NavLink}
-            />
-          )
-        )}
+        {navData.length > 0 &&
+          navData.map(
+            (
+              nav: {
+                url: string
+                label: string
+              },
+              i: number
+            ) => (
+              <Tab
+                sx={{
+                  fontFamily: 'Raleway ',
+                  textTransform: 'none',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                }}
+                key={i}
+                to={nav.url}
+                label={nav.label}
+                value={i}
+                component={NavLink}
+              />
+            )
+          )}
       </Tabs>
     </Fragment>
   )
@@ -107,7 +108,7 @@ const Navbar = () => {
     </Fragment>
   )
   return (
-    <AppBar position='fixed' color='secondary'>
+    <AppBar position='sticky' color='secondary' sx={{ boxShadow: 'none' }}>
       <Toolbar>
         <Typography
           variant='h4'

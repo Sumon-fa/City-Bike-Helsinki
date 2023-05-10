@@ -4,11 +4,11 @@ import TableBody from '@mui/material/TableBody'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
 import { Link, TableContainer } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook'
-import { getStationDetails } from '../../redux/methods/stationMethods'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
+import { getStationDetails } from '../../../redux/methods/stationMethods'
 import { useParams } from 'react-router-dom'
-import theme from '../Ui/theme'
-import { StyledTableCell, StyledTableRow } from '../Ui/tableStyles'
+import theme from '../../Ui/theme'
+import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
 
 function StationDetails() {
   const { station } = useAppSelector((state) => state.station)

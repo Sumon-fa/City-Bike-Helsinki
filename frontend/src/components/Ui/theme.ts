@@ -23,7 +23,7 @@ const theme = createTheme({
     },
   },
   customColors: {
-    blue: '#1281d5',
+    blue: '#0069ac',
   },
 })
 

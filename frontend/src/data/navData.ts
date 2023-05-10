@@ -1,6 +1,6 @@
 export const navData = [
   {
-    label: 'Home',
+    label: 'Journey',
     url: '/',
   },
   {
@@ -9,6 +9,6 @@ export const navData = [
   },
   {
     label: 'Dashboard',
-    url: '#station',
+    url: '/dashboard',
   },
 ]

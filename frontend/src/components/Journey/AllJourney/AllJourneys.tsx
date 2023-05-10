@@ -6,15 +6,15 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
 import { Alert, TableFooter, TablePagination } from '@mui/material'
-import TablePaginationActions from '../Ui/TablePaginationActions'
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook'
-import { getAllJourneys } from '../../redux/methods/journeyMethods'
+import TablePaginationActions from '../../Ui/TablePaginationActions'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
+import { getAllJourneys } from '../../../redux/methods/journeyMethods'
 import { MyStyledImg } from './styles'
-import bikes from '../../assets/bikes.jpg'
-import theme from '../Ui/theme'
-import { StyledTableCell, StyledTableRow } from '../Ui/tableStyles'
+import bikes from '../../../assets/bikes.jpg'
+import theme from '../../Ui/theme'
+import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
 
-export default function Journey() {
+function AllJourney() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
 
@@ -112,3 +112,5 @@ export default function Journey() {
     </>
   )
 }
+
+export default AllJourney
