@@ -3,10 +3,10 @@ import { AppBar, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
 const Footer = () => {
-  const location = useLocation()
+  const { pathname } = useLocation()
   return (
     <>
-      {location.pathname !== '/dashboard' && (
+      {pathname.startsWith('/dashboard') ? null : (
         <AppBar position='static' color='secondary' sx={{ height: '7rem', marginTop: 'auto' }}>
           <Typography variant='h4' color='primary' sx={{ margin: 'auto' }}>
             City Bike

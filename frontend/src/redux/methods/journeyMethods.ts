@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
-import { GetAllJourneys } from '../../types/journey'
+import { CreateJourney, GetAllJourneys, Journey } from '../../types/journey'
 import axiosInstance from '../../common/axiosInstance'
 
 export const getAllJourneys = createAsyncThunk(
@@ -20,3 +20,18 @@ export const getAllJourneys = createAsyncThunk(
     }
   }
 )
+
+export const newJourney = createAsyncThunk('newJourney', async (journey: CreateJourney, thunk) => {
+  try {
+    const response: AxiosResponse<Journey, Journey> = await axiosInstance.post(
+      '/api/v1/journey/new',
+      journey
+    )
+
+    console.log(response.data)
+    return response.data
+  } catch (err: any) {
+    console.log(err)
+    return thunk.rejectWithValue({ message: err.message })
+  }
+})

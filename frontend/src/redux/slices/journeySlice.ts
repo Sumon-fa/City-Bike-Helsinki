@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { GetAllJourneys, JourneyState } from '../../types/journey'
-import { getAllJourneys } from '../methods/journeyMethods'
+import { GetAllJourneys, Journey, JourneyState } from '../../types/journey'
+import { getAllJourneys, newJourney } from '../methods/journeyMethods'
 
 const initialState: JourneyState = {
   journeys: [],
@@ -50,6 +50,29 @@ const journeySlice = createSlice({
     build.addCase(getAllJourneys.pending, (state) => {
       state.isLoading = true
       state.isError = null
+    })
+
+    build.addCase(newJourney.fulfilled, (state, action: PayloadAction<Journey>) => {
+      if (!action.payload) {
+        return state
+      }
+      if ('message' in action.payload) {
+        state.isError = action.payload
+        return state
+      }
+      state.journey = action.payload
+      state.isLoading = false
+      state.isError = null
+      return state
+    })
+    build.addCase(newJourney.rejected, (state, action: PayloadAction<any>) => {
+      state.isError = action.payload
+      state.isLoading = false
+    })
+    build.addCase(newJourney.pending, (state) => {
+      state.isLoading = true
+      state.isError = null
+      console.log(state.journey)
     })
   },
 })

@@ -1,5 +1,4 @@
-export interface Journey {
-  id: string
+export interface CreateJourney {
   departure: string
   departureStationId: string
   departureStationName: string
@@ -8,6 +7,10 @@ export interface Journey {
   returnStationName: string
   coveredDistance: number
   duration: number
+}
+
+export interface Journey extends CreateJourney {
+  id: string
 }
 
 export interface GetAllJourneys {
