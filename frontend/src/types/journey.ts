@@ -21,7 +21,7 @@ export interface GetAllJourneys {
 export interface JourneyState {
   journeys: Journey[]
   totalJourneys: number
-  journey: Journey
+  journey: Journey | null
   isLoading: boolean
   isError: any
 }

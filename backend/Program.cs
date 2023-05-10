@@ -51,7 +51,7 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
     var config = scope.ServiceProvider.GetService<IConfiguration>();
 
-    if (dbContext is not null && config.GetValue<bool>("CreateDbStart", false))
+    if (dbContext is not null)
     {
         dbContext.Database.EnsureDeleted();
         dbContext.Database.EnsureCreated();

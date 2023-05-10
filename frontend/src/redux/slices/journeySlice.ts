@@ -5,17 +5,7 @@ import { getAllJourneys, newJourney } from '../methods/journeyMethods'
 const initialState: JourneyState = {
   journeys: [],
   totalJourneys: 0,
-  journey: {
-    id: '',
-    departure: '',
-    departureStationId: '',
-    departureStationName: '',
-    return: '',
-    returnStationId: '',
-    returnStationName: '',
-    coveredDistance: 0,
-    duration: 0,
-  },
+  journey: null,
   isLoading: false,
   isError: null,
 }
@@ -35,6 +25,9 @@ const journeySlice = createSlice({
       }
       if ('message' in action.payload) {
         state.isError = action.payload
+        state.isLoading = false
+        state.journeys = []
+        state.totalJourneys = 0
         return state
       }
       state.journeys = action.payload.result
@@ -46,10 +39,13 @@ const journeySlice = createSlice({
     build.addCase(getAllJourneys.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
+      state.journeys = []
+      state.totalJourneys = 0
     })
     build.addCase(getAllJourneys.pending, (state) => {
       state.isLoading = true
       state.isError = null
+      state.totalJourneys = 0
     })
 
     build.addCase(newJourney.fulfilled, (state, action: PayloadAction<Journey>) => {
@@ -58,6 +54,8 @@ const journeySlice = createSlice({
       }
       if ('message' in action.payload) {
         state.isError = action.payload
+        state.isLoading = false
+        state.journey = null
         return state
       }
       state.journey = action.payload
@@ -68,11 +66,12 @@ const journeySlice = createSlice({
     build.addCase(newJourney.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
+      state.journey = null
     })
     build.addCase(newJourney.pending, (state) => {
       state.isLoading = true
       state.isError = null
-      console.log(state.journey)
+      state.journey = null
     })
   },
 })

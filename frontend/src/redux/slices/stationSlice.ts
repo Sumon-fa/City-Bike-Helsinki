@@ -5,14 +5,7 @@ import { getAllStations, getStationDetails } from '../methods/stationMethods'
 const initialState: StationState = {
   stations: [],
   totalStations: 0,
-  station: {
-    name: '',
-    address: '',
-    numOfStartingJourney: 0,
-    numOfEndingJourney: 0,
-    x: 0,
-    y: 0,
-  },
+  station: null,
   isLoading: false,
   isError: null,
 }
@@ -32,6 +25,9 @@ const stationSlice = createSlice({
       }
       if ('message' in action.payload) {
         state.isError = action.payload
+        state.isLoading = false
+        state.stations = []
+        state.totalStations = 0
         return state
       }
       state.stations = action.payload.result
@@ -43,10 +39,14 @@ const stationSlice = createSlice({
     build.addCase(getAllStations.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
+      state.stations = []
+      state.totalStations = 0
     })
     build.addCase(getAllStations.pending, (state) => {
       state.isLoading = true
       state.isError = null
+      state.stations = []
+      state.totalStations = 0
     })
 
     build.addCase(getStationDetails.fulfilled, (state, action: PayloadAction<StationDetails>) => {
@@ -55,6 +55,8 @@ const stationSlice = createSlice({
       }
       if ('message' in action.payload) {
         state.isError = action.payload
+        state.isLoading = false
+        state.station = null
         return state
       }
       state.station = action.payload
@@ -65,10 +67,12 @@ const stationSlice = createSlice({
     build.addCase(getStationDetails.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
+      state.station = null
     })
     build.addCase(getStationDetails.pending, (state) => {
       state.isLoading = true
       state.isError = null
+      state.station = null
     })
   },
 })
