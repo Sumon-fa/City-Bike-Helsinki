@@ -17,7 +17,7 @@ const NewJourney = () => {
 
   const { journey } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
-  console.log(journey)
+
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const data = {

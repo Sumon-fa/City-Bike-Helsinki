@@ -97,9 +97,9 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
 
             return new ImportResponseDTO
             {
-                SuccessMessage = $"{Math.Abs(records.Count - 0)} data has been uploaded.",
+                SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count )} data has been uploaded.",
                 StatusCode = 200,
-                DeletedData = $"{0} Duplicate data has been deleted Successfully!"
+                DeletedData = $"{duplicates.Count} Duplicate data has been deleted Successfully!"
             };
         }
         catch (CsvHelper.TypeConversion.TypeConverterException ex)
@@ -123,7 +123,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
                 t.Departure,
                 t.DepartureStationName,
                 t.Return,
-                t.ReturnStationName
+                t.ReturnStationName,
             })
             .Select(g => g.OrderByDescending(t => t.Id)
             .First());

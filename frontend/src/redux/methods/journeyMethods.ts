@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
-import { CreateJourney, GetAllJourneys, Journey } from '../../types/journey'
+import {
+  CreateJourney,
+  FileData,
+  GetAllJourneys,
+  ImportJourneyResponse,
+  Journey,
+} from '../../types/journey'
 import axiosInstance from '../../common/axiosInstance'
 
 export const getAllJourneys = createAsyncThunk(
@@ -27,6 +33,23 @@ export const newJourney = createAsyncThunk('newJourney', async (journey: CreateJ
       '/api/v1/journey/new',
       journey
     )
+
+    console.log(response.data)
+    return response.data
+  } catch (err: any) {
+    console.log(err)
+    return thunk.rejectWithValue({ message: err.message })
+  }
+})
+
+export const importJourney = createAsyncThunk('importJourney', async (data: FileData, thunk) => {
+  try {
+    const response: AxiosResponse<ImportJourneyResponse, ImportJourneyResponse> =
+      await axiosInstance.post('/api/v1/journey/import', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
 
     console.log(response.data)
     return response.data

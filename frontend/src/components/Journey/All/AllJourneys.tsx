@@ -45,7 +45,7 @@ function AllJourney() {
   return (
     <>
       <MyStyledImg src={bikes} alt='bike-image' loading='lazy' />
-      {isError && <Alert severity='error'>This is an error alert — check it out!</Alert>}
+      {isError && <Alert severity='error'>{isError.message}</Alert>}
       <TableContainer
         component={Paper}
         sx={{

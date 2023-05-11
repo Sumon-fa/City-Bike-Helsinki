@@ -18,10 +18,20 @@ export interface GetAllJourneys {
   totalItems: number
 }
 
+export interface ImportJourneyResponse {
+  successMessage: string
+  deletedData: string
+}
+
+export interface FileData {
+  file: File | null
+}
+
 export interface JourneyState {
   journeys: Journey[]
   totalJourneys: number
   journey: Journey | null
   isLoading: boolean
   isError: any
+  imporJourneytResponse: ImportJourneyResponse | null
 }
