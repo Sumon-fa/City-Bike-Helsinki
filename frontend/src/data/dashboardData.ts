@@ -9,12 +9,17 @@ export const dashboardData = [
   },
   {
     label: 'Import',
-    url: '/dashboard/import',
+    url: '/dashboard/Journey/import',
     icon: CloudUploadIcon,
   },
   {
     label: 'Station',
     url: '/dashboard/station/new',
     icon: AddIcon,
+  },
+  {
+    label: 'Import',
+    url: '/dashboard/station/import',
+    icon: CloudUploadIcon,
   },
 ]

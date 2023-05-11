@@ -20,6 +20,8 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/journey/new' element={<NewJourney />} />
         <Route path='/dashboard/journey/import' element={<ImportJorney />} />
+        <Route path='/dashboard/station/new' element={<NewJourney />} />
+        <Route path='/dashboard/station/import' element={<ImportJorney />} />
       </Routes>
       <Footer />
     </div>

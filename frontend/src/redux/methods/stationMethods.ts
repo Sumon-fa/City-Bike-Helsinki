@@ -5,12 +5,12 @@ import { GetAllStations, StationDetails } from '../../types/station'
 
 export const getAllStations = createAsyncThunk(
   'getAllStations',
-  async (filter: { title: string; pageNumber: number }, thunkApi) => {
+  async (filter: { searchKeyWord: string; pageNumber: number }, thunkApi) => {
     try {
       const pageSize = 8
       let link = '/api/v1/stations'
       if (filter) {
-        link = `/api/v1/stations?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.title}`
+        link = `/api/v1/stations?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.searchKeyWord}`
       }
 
       const response: AxiosResponse<GetAllStations, GetAllStations> = await axiosInstance.get(link)

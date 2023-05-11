@@ -5,17 +5,19 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Link, TableFooter, TablePagination } from '@mui/material'
+import { Box, Link, TableFooter, TablePagination } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllStations } from '../../../redux/methods/stationMethods'
 import theme from '../../Ui/theme'
 import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
 import TablePaginationActions from '../../Ui/TablePaginationActions'
 import { NavLink } from 'react-router-dom'
+import Search from '../../Search/Search'
 
 function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
+  const [searchKeyWord, setSearch] = useState('')
 
   const { stations, totalStations } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
@@ -26,12 +28,12 @@ function AllStations() {
 
   useEffect(() => {
     const filter = {
-      title: '',
+      searchKeyWord: searchKeyWord,
       pageNumber: page + 1,
     }
 
     dispatch(getAllStations(filter))
-  }, [page])
+  }, [page, searchKeyWord])
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,6 +45,15 @@ function AllStations() {
 
   return (
     <>
+      <Box
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '20ch', marginLeft: '51rem' },
+          position: 'relative',
+          top: '161px',
+        }}
+      >
+        <Search setSearch={setSearch} />
+      </Box>
       <TableContainer
         component={Paper}
         sx={{

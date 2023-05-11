@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CustomDashboard from '../../../Ui/CustomDashboard'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
+import { useAppDispatch } from '../../../../hooks/reduxHook'
 import { newJourney } from '../../../../redux/methods/journeyMethods'
 
 const NewJourney = () => {
@@ -15,7 +15,6 @@ const NewJourney = () => {
   const [coveredDistance, setCoveredDistance] = useState(0)
   const [duration, setDuration] = useState(0)
 
-  const { journey } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {

@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Alert, TableFooter, TablePagination } from '@mui/material'
+import { Alert, Box, TableFooter, TablePagination } from '@mui/material'
 import TablePaginationActions from '../../Ui/TablePaginationActions'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllJourneys } from '../../../redux/methods/journeyMethods'
@@ -13,26 +13,28 @@ import { MyStyledImg } from './styles'
 import bikes from '../../../assets/bikes.jpg'
 import theme from '../../Ui/theme'
 import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
+import Search from '../../Search/Search'
 
 function AllJourney() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
-
+  const [searchKeyWord, setSearch] = useState('')
   const { journeys, totalJourneys, isError } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
   }
+  console.log(searchKeyWord)
 
   useEffect(() => {
     const filter = {
-      title: '',
+      searchKeyWord: searchKeyWord,
       pageNumber: page + 1,
     }
 
     dispatch(getAllJourneys(filter))
-  }, [page])
+  }, [page, searchKeyWord])
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,6 +48,15 @@ function AllJourney() {
     <>
       <MyStyledImg src={bikes} alt='bike-image' loading='lazy' />
       {isError && <Alert severity='error'>{isError.message}</Alert>}
+      <Box
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '20ch' },
+          marginLeft: '54rem',
+        }}
+      >
+        <Search setSearch={setSearch} />
+      </Box>
+
       <TableContainer
         component={Paper}
         sx={{

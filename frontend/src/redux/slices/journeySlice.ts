@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { GetAllJourneys, ImportJourneyResponse, Journey, JourneyState } from '../../types/journey'
 import { getAllJourneys, importJourney, newJourney } from '../methods/journeyMethods'
 
@@ -90,6 +90,8 @@ const journeySlice = createSlice({
         state.imporJourneytResponse = action.payload
         state.isLoading = false
         state.isError = null
+        console.log(current(state))
+
         return state
       }
     )
@@ -102,7 +104,6 @@ const journeySlice = createSlice({
       state.isLoading = true
       state.isError = null
       state.imporJourneytResponse = null
-      console.log(state.journeys)
     })
   },
 })
