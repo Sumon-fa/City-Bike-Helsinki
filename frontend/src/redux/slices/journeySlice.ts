@@ -8,7 +8,7 @@ const initialState: JourneyState = {
   journey: null,
   isLoading: false,
   isError: null,
-  imporJourneytResponse: null,
+  importJourneytResponse: null,
 }
 
 const journeySlice = createSlice({
@@ -84,10 +84,10 @@ const journeySlice = createSlice({
         if ('message' in action.payload) {
           state.isError = action.payload
           state.isLoading = false
-          state.imporJourneytResponse = null
+          state.importJourneytResponse = null
           return state
         }
-        state.imporJourneytResponse = action.payload
+        state.importJourneytResponse = action.payload
         state.isLoading = false
         state.isError = null
         console.log(current(state))
@@ -98,12 +98,12 @@ const journeySlice = createSlice({
     build.addCase(importJourney.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
-      state.imporJourneytResponse = null
+      state.importJourneytResponse = null
     })
     build.addCase(importJourney.pending, (state) => {
       state.isLoading = true
       state.isError = null
-      state.imporJourneytResponse = null
+      state.importJourneytResponse = null
     })
   },
 })

@@ -1,7 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
 import axiosInstance from '../../common/axiosInstance'
-import { GetAllStations, StationDetails } from '../../types/station'
+import {
+  FileData,
+  GetAllStations,
+  ImportStationResponse,
+  StationDetails,
+} from '../../types/station'
 
 export const getAllStations = createAsyncThunk(
   'getAllStations',
@@ -28,10 +33,24 @@ export const getStationDetails = createAsyncThunk(
       const response: AxiosResponse<StationDetails, StationDetails> = await axiosInstance.get(
         `/api/v1/station/${id}`
       )
-      console.log(response.data)
       return response.data
     } catch (err: any) {
       return thunk.rejectWithValue({ message: err.message })
     }
   }
 )
+
+export const importStation = createAsyncThunk('importStation', async (data: FileData, thunk) => {
+  try {
+    const response: AxiosResponse<ImportStationResponse, ImportStationResponse> =
+      await axiosInstance.post('/api/v1/station/import', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    console.log(response.data)
+    return response.data
+  } catch (err: any) {
+    return thunk.rejectWithValue({ message: err.message })
+  }
+})

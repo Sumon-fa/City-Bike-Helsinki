@@ -8,6 +8,7 @@ import AllJourney from './components/Journey/All/AllJourneys'
 import Dashboard from './components/Dashboard/Dashboard'
 import NewJourney from './components/Dashboard/Journey/New/NewJourney'
 import ImportJorney from './components/Dashboard/Journey/Import/ImportJorney'
+import ImportStation from './components/Dashboard/Station/Import/ImportStation'
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path='/dashboard/journey/new' element={<NewJourney />} />
         <Route path='/dashboard/journey/import' element={<ImportJorney />} />
         <Route path='/dashboard/station/new' element={<NewJourney />} />
-        <Route path='/dashboard/station/import' element={<ImportJorney />} />
+        <Route path='/dashboard/station/import' element={<ImportStation />} />
       </Routes>
       <Footer />
     </div>

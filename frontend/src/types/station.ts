@@ -23,10 +23,20 @@ export interface GetAllStations {
   totalItems: number
 }
 
+export interface ImportStationResponse {
+  successMessage: string
+  deletedData: string
+}
+
+export interface FileData {
+  file: File | null
+}
+
 export interface StationState {
   stations: Station[]
   totalStations: number
   station: StationDetails | null
   isLoading: boolean
   isError: any
+  importStationtResponse: ImportStationResponse | null
 }

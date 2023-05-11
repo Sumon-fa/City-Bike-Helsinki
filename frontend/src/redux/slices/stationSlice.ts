@@ -1,6 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { GetAllStations, StationDetails, StationState } from '../../types/station'
-import { getAllStations, getStationDetails } from '../methods/stationMethods'
+import {
+  GetAllStations,
+  ImportStationResponse,
+  StationDetails,
+  StationState,
+} from '../../types/station'
+import { getAllStations, getStationDetails, importStation } from '../methods/stationMethods'
 
 const initialState: StationState = {
   stations: [],
@@ -8,6 +13,7 @@ const initialState: StationState = {
   station: null,
   isLoading: false,
   isError: null,
+  importStationtResponse: null,
 }
 
 const stationSlice = createSlice({
@@ -73,6 +79,35 @@ const stationSlice = createSlice({
       state.isLoading = true
       state.isError = null
       state.station = null
+    })
+
+    build.addCase(
+      importStation.fulfilled,
+      (state, action: PayloadAction<ImportStationResponse>) => {
+        if (!action.payload) {
+          return state
+        }
+        if ('message' in action.payload) {
+          state.isError = action.payload
+          state.isLoading = false
+          state.importStationtResponse = null
+          return state
+        }
+        state.importStationtResponse = action.payload
+        state.isLoading = false
+        state.isError = null
+        return state
+      }
+    )
+    build.addCase(importStation.rejected, (state, action: PayloadAction<any>) => {
+      state.isError = action.payload
+      state.isLoading = false
+      state.importStationtResponse = null
+    })
+    build.addCase(importStation.pending, (state) => {
+      state.isLoading = true
+      state.isError = null
+      state.importStationtResponse = null
     })
   },
 })

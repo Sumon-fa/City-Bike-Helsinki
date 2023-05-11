@@ -33,5 +33,5 @@ export interface JourneyState {
   journey: Journey | null
   isLoading: boolean
   isError: any
-  imporJourneytResponse: ImportJourneyResponse | null
+  importJourneytResponse: ImportJourneyResponse | null
 }

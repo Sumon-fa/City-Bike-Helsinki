@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Import from '../../../Ui/Import'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
-import { importJourney } from '../../../../redux/methods/journeyMethods'
+import { importStation } from '../../../../redux/methods/stationMethods'
 
-const ImportJorney = () => {
+const ImportStation = () => {
   const [item, setItem] = useState<File | null>(null)
   const dispatch = useAppDispatch()
-  const { isError, isLoading } = useAppSelector((state) => state.journey)
+
+  const { isError, isLoading } = useAppSelector((state) => state.station)
 
   useEffect(() => {
     const data = { file: item }
     if (item) {
-      dispatch(importJourney(data))
+      dispatch(importStation(data))
     }
     setItem(null)
   }, [item])
@@ -19,4 +20,4 @@ const ImportJorney = () => {
   return <Import setItem={setItem} isError={isError} isLoading={isLoading} />
 }
 
-export default ImportJorney
+export default ImportStation

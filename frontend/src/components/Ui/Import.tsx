@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { Box, Button } from '@mui/material'
 import CustomDashboard from './CustomDashboard'
-import { useAppSelector } from '../../hooks/reduxHook'
 import ErrorAlert from './ErrorAlert'
 import LinearLoader from './LinearLoader'
 
 interface ImportProps {
   setItem: React.Dispatch<React.SetStateAction<File | null>>
+  isError: any
+  isLoading: boolean
 }
 
-const Import = ({ setItem }: ImportProps) => {
+const Import = ({ setItem, isError, isLoading }: ImportProps) => {
   const [file, setFile] = useState<File | null>(null)
-  const { isError, isLoading } = useAppSelector((state) => state.journey)
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
