@@ -25,7 +25,6 @@ function AllJourney() {
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
   }
-  console.log(searchKeyWord)
 
   useEffect(() => {
     const filter = {

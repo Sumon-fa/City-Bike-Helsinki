@@ -1,5 +1,24 @@
+export interface CreateStation {
+  id: string
+  nimi: string
+  namn: string
+  name: string
+  osoite: string
+  adress: string
+  kaupunki: string
+  stad: string
+  operaattor: string
+  kapasiteet: number
+  x: number
+  y: number
+}
+
+export interface NewStation extends CreateStation {
+  fid: number
+}
+
 export interface Station {
-  fid: number | null
+  fid: number
   id: string
   nimi: string
   osoite: string
@@ -39,4 +58,5 @@ export interface StationState {
   isLoading: boolean
   isError: any
   importStationtResponse: ImportStationResponse | null
+  createdStation: NewStation | null
 }

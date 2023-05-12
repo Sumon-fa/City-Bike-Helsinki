@@ -3,33 +3,41 @@ import CustomDashboard from '../../../Ui/CustomDashboard'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
 import { useAppDispatch } from '../../../../hooks/reduxHook'
-import { newJourney } from '../../../../redux/methods/journeyMethods'
+import { newStation } from '../../../../redux/methods/stationMethods'
 
-const NewJourney = () => {
-  const [departure, setDeparture] = useState('')
-  const [departureStationId, setDepartureStationId] = useState('')
-  const [departureStationName, setDepartureStationName] = useState('')
-  const [back, setBack] = useState('')
-  const [returnStationId, setReturnStationId] = useState('')
-  const [returnStationName, setReturnStationName] = useState('')
-  const [coveredDistance, setCoveredDistance] = useState(0)
-  const [duration, setDuration] = useState(0)
+const NewStation = () => {
+  const [id, setId] = useState('')
+  const [nimi, setNimi] = useState('')
+  const [namn, setNamn] = useState('')
+  const [name, setName] = useState('')
+  const [osoite, setOsoite] = useState('')
+  const [adress, setAdress] = useState('')
+  const [kaupunki, setKaupunki] = useState('')
+  const [stad, setStad] = useState('')
+  const [operaattor, setOperattor] = useState('')
+  const [kapasiteet, setKapasiteet] = useState(0)
+  const [x, setX] = useState(0)
+  const [y, setY] = useState(0)
 
   const dispatch = useAppDispatch()
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const data = {
-      departure,
-      departureStationId,
-      departureStationName,
-      return: back,
-      returnStationId,
-      returnStationName,
-      coveredDistance,
-      duration,
+      id,
+      nimi,
+      namn,
+      name,
+      osoite,
+      adress,
+      kaupunki,
+      stad,
+      operaattor,
+      kapasiteet,
+      x,
+      y,
     }
-    dispatch(newJourney(data))
+    dispatch(newStation(data))
   }
 
   return (
@@ -43,7 +51,7 @@ const NewJourney = () => {
           component='form'
         >
           <Typography variant='h6' gutterBottom sx={{ paddingBottom: 5 }}>
-            New Journey
+            New Station
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={2}>
@@ -54,23 +62,20 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Departure
+                Id
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
                 required
-                id='departure'
-                name='departure'
+                id='id'
+                name='id'
                 fullWidth
                 size='small'
                 variant='outlined'
-                type='datetime-local'
                 color='secondary'
-                value={departure}
-                onChange={(e) =>
-                  setDeparture(new Date(e.target.value).toISOString().replace('Z', ''))
-                }
+                value={id}
+                onChange={(e) => setId(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -81,21 +86,46 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Id
+                Nimi
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                id='departureStationId'
-                name='departureStationId'
-                label='Departure Station Id'
+                id='nimi'
+                name='nimi'
+                label='Nimi'
                 size='small'
                 variant='outlined'
                 color='secondary'
                 required
                 fullWidth
-                value={departureStationId}
-                onChange={(e) => setDepartureStationId(e.target.value)}
+                value={nimi}
+                onChange={(e) => setNimi(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <InputLabel
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontWeight: 700,
+                }}
+              >
+                Namn
+              </InputLabel>
+            </Grid>
+            <Grid item xs={12} sm={10}>
+              <TextField
+                required
+                id='namn'
+                name='namn'
+                label='Namn'
+                color='secondary'
+                fullWidth
+                size='small'
+                variant='outlined'
+                value={namn}
+                onChange={(e) => setNamn(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -112,15 +142,14 @@ const NewJourney = () => {
             <Grid item xs={12} sm={10}>
               <TextField
                 required
-                id='departureStationName'
-                name='departureStationName'
-                label='Departure Station Name'
+                id='name'
+                name='name'
                 fullWidth
                 color='secondary'
                 size='small'
                 variant='outlined'
-                value={departureStationName}
-                onChange={(e) => setDepartureStationName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -131,21 +160,21 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Return
+                Osoite
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
-                id='back'
-                name='back'
-                fullWidth
+                id='osoite'
+                name='osoite'
+                label='Osoite'
                 size='small'
-                variant='outlined'
-                type='datetime-local'
                 color='secondary'
-                value={back}
-                onChange={(e) => setBack(new Date(e.target.value).toISOString().replace('Z', ''))}
+                variant='outlined'
+                required
+                fullWidth
+                value={osoite}
+                onChange={(e) => setOsoite(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -156,21 +185,21 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Id
+                Adress
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                id='returnStationId'
-                name='returnStationId'
-                label='Return Station Id'
+                required
+                id='adress'
+                name='adress'
+                label='Adress'
+                fullWidth
+                color='secondary'
                 size='small'
                 variant='outlined'
-                color='secondary'
-                required
-                fullWidth
-                value={returnStationId}
-                onChange={(e) => setReturnStationId(e.target.value)}
+                value={adress}
+                onChange={(e) => setAdress(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -181,21 +210,71 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Name
+                Kaupunki
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
                 required
-                id='returnStationName'
-                name='returnStationName'
-                label='Return Station Name'
+                id='kaupunki'
+                name='kaupunki'
+                label='Kaupunki'
+                fullWidth
+                size='small'
+                color='secondary'
+                variant='outlined'
+                value={kaupunki}
+                onChange={(e) => setKaupunki(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <InputLabel
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontWeight: 700,
+                }}
+              >
+                Stad
+              </InputLabel>
+            </Grid>
+            <Grid item xs={12} sm={10}>
+              <TextField
+                required
+                id='stad'
+                name='stad'
+                label='Stad'
                 fullWidth
                 size='small'
                 variant='outlined'
                 color='secondary'
-                value={returnStationName}
-                onChange={(e) => setReturnStationName(e.target.value)}
+                value={stad}
+                onChange={(e) => setStad(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <InputLabel
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontWeight: 700,
+                }}
+              >
+                Operaattor
+              </InputLabel>
+            </Grid>
+            <Grid item xs={12} sm={10}>
+              <TextField
+                required
+                id='operaattor'
+                name='operaator'
+                label='Operaattor'
+                color='secondary'
+                fullWidth
+                size='small'
+                variant='outlined'
+                value={operaattor}
+                onChange={(e) => setOperattor(e.target.value)}
               />
             </Grid>
 
@@ -207,59 +286,29 @@ const NewJourney = () => {
                   fontWeight: 700,
                 }}
               >
-                Distance
+                Kapasiteet
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
                 required
-                id='coveredDistance'
-                name='coveredDistance'
-                label='Covered Distance (m)'
-                size='small'
-                variant='outlined'
-                type='number'
-                color='secondary'
-                value={coveredDistance}
-                onChange={(e) => {
-                  const value = parseFloat(e.target.value)
-                  if (!isNaN(value)) {
-                    setCoveredDistance(value)
-                  }
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={2}>
-              <InputLabel
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                }}
-              >
-                Duration
-              </InputLabel>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                required
-                id='duration'
-                name='duration'
-                label='Duration (sec.)'
+                id='kapasiteet'
+                name='kapasiteet'
+                label='Kapasiteet'
                 size='small'
                 variant='outlined'
                 color='secondary'
                 type='number'
-                value={duration}
+                value={kapasiteet}
                 onChange={(e) => {
                   const value = parseInt(e.target.value)
                   if (!isNaN(value)) {
-                    setDuration(value)
+                    setKapasiteet(value)
                   }
                 }}
               />
             </Grid>
+
             <Grid item xs={12} sm={2}>
               <InputLabel
                 sx={{
@@ -267,13 +316,65 @@ const NewJourney = () => {
                   justifyContent: 'center',
                   fontWeight: 700,
                 }}
-              ></InputLabel>
+              >
+                X
+              </InputLabel>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                required
+                id='x'
+                name='x'
+                label='X'
+                size='small'
+                variant='outlined'
+                color='secondary'
+                type='number'
+                value={x}
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value)
+                  if (!isNaN(value)) {
+                    setX(value)
+                  }
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={2}>
+              <InputLabel
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  fontWeight: 700,
+                }}
+              >
+                Y
+              </InputLabel>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                required
+                id='y'
+                name='y'
+                label='Y'
+                size='small'
+                color='secondary'
+                variant='outlined'
+                type='number'
+                value={y}
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value)
+                  if (!isNaN(value)) {
+                    setY(value)
+                  }
+                }}
+              />
             </Grid>
 
             <Grid item xs={12} sm={6} />
             <Grid item xs={12} sm={5} />
             <Grid item xs={12} sm={4}>
-              <Button type='submit' color='secondary' variant='contained'>
+              <Button type='submit' variant='contained' color='secondary'>
                 Submit
               </Button>
             </Grid>
@@ -285,4 +386,4 @@ const NewJourney = () => {
   )
 }
 
-export default NewJourney
+export default NewStation

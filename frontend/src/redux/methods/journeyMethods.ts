@@ -34,10 +34,8 @@ export const newJourney = createAsyncThunk('newJourney', async (journey: CreateJ
       journey
     )
 
-    console.log(response.data)
     return response.data
   } catch (err: any) {
-    console.log(err)
     return thunk.rejectWithValue({ message: err.message })
   }
 })
@@ -51,7 +49,6 @@ export const importJourney = createAsyncThunk('importJourney', async (data: File
         },
       })
 
-    console.log(response.data)
     return response.data
   } catch (err: any) {
     console.log(err)
