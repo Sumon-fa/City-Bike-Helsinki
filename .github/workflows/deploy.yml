@@ -2,7 +2,7 @@ name: Automate push/deployment operation
 on: [push]
 env:
   AZURE_WEBAPP_NAME: citybikehelsinkiregion
-  AZURE_WEBAPP_PACKAGE_PATH: '/.published'
+  AZURE_WEBAPP_PACKAGE_PATH: '/home/runner/work/City-Bike-Helsinki/City-Bike-Helsinki/backend/bin/Debug/net6.0/publish/'
 
 jobs:
   NetProject:
