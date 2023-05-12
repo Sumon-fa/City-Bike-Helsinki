@@ -7,13 +7,6 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseKestrel(options =>
-{
-    options.ListenLocalhost(5000);
-
-    // options.ListenLocalhost(5001, options => options.UseHttps());
-});
-
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>();
@@ -52,7 +45,7 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
     var config = scope.ServiceProvider.GetService<IConfiguration>();
 
-    if (dbContext is not null)
+    if (dbContext is not null && config.GetValue<bool>("CreateDbStart", false))
     {
         dbContext.Database.EnsureDeleted();
         dbContext.Database.EnsureCreated();
