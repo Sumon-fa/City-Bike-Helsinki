@@ -13,8 +13,8 @@ export default function Search({ setSearch }: SearchProps) {
       id='outlined-search'
       label='Search field'
       type='search'
-      onChange={(e) => setSearch(e.target.value)}
       focused
+      onChange={(e) => setSearch(e.target.value)}
     />
   )
 }

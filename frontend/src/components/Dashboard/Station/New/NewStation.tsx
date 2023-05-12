@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import CustomDashboard from '../../../Ui/CustomDashboard'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
-import { useAppDispatch } from '../../../../hooks/reduxHook'
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
 import { newStation } from '../../../../redux/methods/stationMethods'
+import ErrorAlert from '../../../Ui/ErrorAlert'
 
 const NewStation = () => {
   const [id, setId] = useState('')
@@ -19,6 +20,7 @@ const NewStation = () => {
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
 
+  const { isError, isLoading } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -42,6 +44,7 @@ const NewStation = () => {
 
   return (
     <CustomDashboard>
+      {isError && !isLoading && <ErrorAlert message={isError.message} />}
       <Paper elevation={3} sx={{ marginRight: '15%', marginLeft: '15%' }}>
         <Box
           onSubmit={(e) => submitHandler(e)}

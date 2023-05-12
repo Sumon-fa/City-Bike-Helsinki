@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { Box, Button } from '@mui/material'
+import { Alert, Box, Button } from '@mui/material'
 import CustomDashboard from './CustomDashboard'
 import ErrorAlert from './ErrorAlert'
 import LinearLoader from './LinearLoader'
+import { ImportResponse } from '../../types/imortResponse'
 
 interface ImportProps {
   setItem: React.Dispatch<React.SetStateAction<File | null>>
   isError: any
   isLoading: boolean
+  importResponse: ImportResponse | null
 }
 
-const Import = ({ setItem, isError, isLoading }: ImportProps) => {
+const Import = ({ setItem, isError, isLoading, importResponse }: ImportProps) => {
   const [file, setFile] = useState<File | null>(null)
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +29,15 @@ const Import = ({ setItem, isError, isLoading }: ImportProps) => {
     <CustomDashboard>
       {isError && !isLoading && <ErrorAlert message={isError.message} />}
       {isLoading && !isError && <LinearLoader />}
+      {!isLoading && !isError && importResponse && (
+        <Alert
+          icon={false}
+          severity='success'
+          sx={{ display: 'flex', margin: 'auto auto 22px auto', width: '50%' }}
+        >
+          {`${importResponse.successMessage}. ${importResponse.deletedData}`}
+        </Alert>
+      )}
       <Box
         onSubmit={(e) => submitHandler(e)}
         sx={{ textAlign: 'center' }}

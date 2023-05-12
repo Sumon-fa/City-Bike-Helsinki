@@ -13,13 +13,14 @@ import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
 import TablePaginationActions from '../../Ui/TablePaginationActions'
 import { NavLink } from 'react-router-dom'
 import Search from '../../Search/Search'
+import ErrorAlert from '../../Ui/ErrorAlert'
 
 function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
 
-  const { stations, totalStations } = useAppSelector((state) => state.station)
+  const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -45,9 +46,11 @@ function AllStations() {
 
   return (
     <>
+      {isError && !isLoading && <ErrorAlert message={isError.message} />}
+
       <Box
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '20ch', marginLeft: '51rem' },
+          '& .MuiTextField-root': { m: 1, width: '20ch', marginLeft: '54%' },
           position: 'relative',
           top: '161px',
         }}

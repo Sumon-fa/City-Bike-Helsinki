@@ -7,7 +7,7 @@ const ImportStation = () => {
   const [item, setItem] = useState<File | null>(null)
   const dispatch = useAppDispatch()
 
-  const { isError, isLoading } = useAppSelector((state) => state.station)
+  const { isError, isLoading, importStationtResponse } = useAppSelector((state) => state.station)
 
   useEffect(() => {
     const data = { file: item }
@@ -17,7 +17,14 @@ const ImportStation = () => {
     setItem(null)
   }, [item])
 
-  return <Import setItem={setItem} isError={isError} isLoading={isLoading} />
+  return (
+    <Import
+      setItem={setItem}
+      isError={isError}
+      isLoading={isLoading}
+      importResponse={importStationtResponse}
+    />
+  )
 }
 
 export default ImportStation

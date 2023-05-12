@@ -6,7 +6,7 @@ import { importJourney } from '../../../../redux/methods/journeyMethods'
 const ImportJorney = () => {
   const [item, setItem] = useState<File | null>(null)
   const dispatch = useAppDispatch()
-  const { isError, isLoading } = useAppSelector((state) => state.journey)
+  const { isError, isLoading, importJourneytResponse } = useAppSelector((state) => state.journey)
 
   useEffect(() => {
     const data = { file: item }
@@ -16,7 +16,14 @@ const ImportJorney = () => {
     setItem(null)
   }, [item])
 
-  return <Import setItem={setItem} isError={isError} isLoading={isLoading} />
+  return (
+    <Import
+      setItem={setItem}
+      isError={isError}
+      isLoading={isLoading}
+      importResponse={importJourneytResponse}
+    />
+  )
 }
 
 export default ImportJorney

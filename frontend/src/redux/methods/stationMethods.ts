@@ -5,10 +5,10 @@ import {
   CreateStation,
   FileData,
   GetAllStations,
-  ImportStationResponse,
   NewStation,
   StationDetails,
 } from '../../types/station'
+import { ImportResponse } from '../../types/imortResponse'
 
 export const getAllStations = createAsyncThunk(
   'getAllStations',
@@ -44,12 +44,15 @@ export const getStationDetails = createAsyncThunk(
 
 export const importStation = createAsyncThunk('importStation', async (data: FileData, thunk) => {
   try {
-    const response: AxiosResponse<ImportStationResponse, ImportStationResponse> =
-      await axiosInstance.post('/api/v1/station/import', data, {
+    const response: AxiosResponse<ImportResponse, ImportResponse> = await axiosInstance.post(
+      '/api/v1/station/import',
+      data,
+      {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      })
+      }
+    )
     return response.data
   } catch (err: any) {
     return thunk.rejectWithValue({ message: err.message })
