@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Box, TableFooter, TablePagination } from '@mui/material'
+import { Box, TableFooter, TablePagination, useMediaQuery } from '@mui/material'
 import TablePaginationActions from '../../Ui/TablePaginationActions'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllJourneys } from '../../../redux/methods/journeyMethods'
@@ -20,6 +20,7 @@ function AllJourney() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const { journeys, totalJourneys, isError, isLoading } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
@@ -50,8 +51,13 @@ function AllJourney() {
       {isError && !isLoading && <ErrorAlert message={isError.message} />}
       <Box
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '20ch' },
-          marginLeft: '57%',
+          '& .MuiTextField-root': { m: 2, width: '20ch' },
+          marginLeft: '67%',
+          [theme.breakpoints.down('sm')]: {
+            '& .MuiTextField-root': { m: 1, width: '13ch' },
+            textAlign: 'end',
+            marginLeft: '0',
+          },
         }}
       >
         <Search setSearch={setSearch} />
@@ -61,11 +67,13 @@ function AllJourney() {
         component={Paper}
         sx={{
           margin: '0 auto 120px auto',
-          width: 'max-content',
+          width: '60%',
           overflow: 'hidden',
           [theme.breakpoints.down('sm')]: {
-            width: '350px',
-            marginBottom: '60px',
+            width: '100%',
+            marginBottom: '40px',
+            borderRadius: '0',
+            boxShadow: 'none',
           },
         }}
       >
@@ -76,8 +84,8 @@ function AllJourney() {
                 Departure
               </StyledTableCell>
               <StyledTableCell align='center'>Return</StyledTableCell>
-              <StyledTableCell align='center'>Covered Distance (m)</StyledTableCell>
-              <StyledTableCell align='center'>Duration (sec)</StyledTableCell>
+              <StyledTableCell align='center'>Distance (km)</StyledTableCell>
+              {!matches && <StyledTableCell align='center'>Duration (min)</StyledTableCell>}
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -89,7 +97,7 @@ function AllJourney() {
                   </StyledTableCell>
                   <StyledTableCell align='center'>{j.returnStationName}</StyledTableCell>
                   <StyledTableCell align='center'>{j.coveredDistance.toFixed(2)}</StyledTableCell>
-                  <StyledTableCell align='center'>{j.duration}</StyledTableCell>
+                  {!matches && <StyledTableCell align='center'>{j.duration}</StyledTableCell>}
                 </StyledTableRow>
               ))}
             {emptyRows > 0 && (

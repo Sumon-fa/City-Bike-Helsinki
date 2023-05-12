@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Box, Link, TableFooter, TablePagination } from '@mui/material'
+import { Box, Link, TableFooter, TablePagination, useMediaQuery } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllStations } from '../../../redux/methods/stationMethods'
 import theme from '../../Ui/theme'
@@ -19,6 +19,7 @@ function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
   const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
@@ -50,9 +51,13 @@ function AllStations() {
 
       <Box
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '20ch', marginLeft: '54%' },
-          position: 'relative',
-          top: '161px',
+          '& .MuiTextField-root': { m: 2, width: '20ch', marginLeft: '68%', marginTop: '6%' },
+
+          [theme.breakpoints.down('sm')]: {
+            '& .MuiTextField-root': { m: 1, width: '13ch', marginTop: '8%' },
+            textAlign: 'end',
+            marginLeft: '0',
+          },
         }}
       >
         <Search setSearch={setSearch} />
@@ -60,12 +65,15 @@ function AllStations() {
       <TableContainer
         component={Paper}
         sx={{
-          margin: '160px auto 120px auto',
-          width: 'max-content',
+          margin: '0 auto 120px auto',
+          width: '60%',
           overflow: 'hidden',
           [theme.breakpoints.down('sm')]: {
-            width: '350px',
-            marginBottom: '60px',
+            marginTop: '0',
+            width: '100%',
+            marginBottom: '9%',
+            borderRadius: '0',
+            boxShadow: 'none',
           },
         }}
       >
@@ -77,7 +85,7 @@ function AllStations() {
               </StyledTableCell>
               <StyledTableCell align='center'>Address</StyledTableCell>
               <StyledTableCell align='center'>City</StyledTableCell>
-              <StyledTableCell align='center'>Capacity</StyledTableCell>
+              {!matches && <StyledTableCell align='center'>Capacity</StyledTableCell>}
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -96,7 +104,7 @@ function AllStations() {
                   </StyledTableCell>
                   <StyledTableCell align='center'>{s.osoite}</StyledTableCell>
                   <StyledTableCell align='center'>{s.kaupunki}</StyledTableCell>
-                  <StyledTableCell align='center'>{s.kapasiteet}</StyledTableCell>
+                  {!matches && <StyledTableCell align='center'>{s.kapasiteet}</StyledTableCell>}
                 </StyledTableRow>
               ))}
             {emptyRows > 0 && (

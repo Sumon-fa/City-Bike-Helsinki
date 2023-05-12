@@ -1,7 +1,7 @@
 # City Bike Helsinki
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
-![CSS](https://img.shields.io/badge/CSS-v.3-brightgreen)
+![MUI](https://img.shields.io/badge/MUI-v.5-green)
 ![React](https://img.shields.io/badge/React-v.18-blue)
 ![Redux toolkit](https://img.shields.io/badge/Redux-v.1.9-brown)
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-v.6-yellowgreen)

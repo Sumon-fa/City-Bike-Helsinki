@@ -1,0 +1,31 @@
+name: Automate push/deployment operation
+on: [push]
+env:
+  AZURE_WEBAPP_NAME: citybikehelsinkiregion
+  AZURE_WEBAPP_PACKAGE_PATH: '/.published'
+
+jobs:
+  NetProject:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v3
+      - name: install .net sdk
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: install all dependencies
+        run: dotnet restore
+
+      - name: Publish app for deploy
+        run: dotnet publish
+
+      - name: 'deploy to azure'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{env.AZURE_WEBAPP_NAME}}
+          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
+          package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
