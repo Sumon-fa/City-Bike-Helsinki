@@ -30,7 +30,6 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.HasPostgresExtension("citext");
 
         modelBuilder.Entity<Journey>()
                     .HasIndex(j => new
@@ -45,10 +44,6 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Station>()
                     .HasIndex(s => s.ID).IsUnique();
-
-        modelBuilder.Entity<Journey>()
-              .Property(j => j.DepartureStationName)
-              .HasColumnType("citext");
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
