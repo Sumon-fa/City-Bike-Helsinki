@@ -21,6 +21,7 @@ public class AppDbContext : DbContext
         base.OnConfiguring(optionsBuilder);
 
         var connString = _config.GetConnectionString("DefaultConnection");
+        Console.WriteLine(connString);
 
         optionsBuilder.UseNpgsql(connString)
         .UseSnakeCaseNamingConvention();
@@ -44,6 +45,10 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Station>()
                     .HasIndex(s => s.ID).IsUnique();
+
+        modelBuilder.Entity<Journey>()
+              .Property(j => j.DepartureStationName)
+              .HasColumnType("citext");
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
