@@ -97,7 +97,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO, JourneyCsvMap>, I
 
             return new ImportResponseDTO
             {
-                SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count )} data has been uploaded.",
+                SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count)} data has been uploaded.",
                 StatusCode = 200,
                 DeletedData = $"{duplicates.Count} Duplicate data has been deleted Successfully!"
             };

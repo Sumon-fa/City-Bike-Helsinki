@@ -44,10 +44,6 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Station>()
                     .HasIndex(s => s.ID).IsUnique();
-
-        modelBuilder.Entity<Journey>()
-              .Property(j => j.DepartureStationName)
-              .HasColumnType("citext");
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
