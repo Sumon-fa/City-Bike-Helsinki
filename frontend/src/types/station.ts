@@ -1,5 +1,3 @@
-import { ImportResponse } from './imortResponse'
-
 export interface CreateStation {
   id: string
   nimi: string
@@ -44,16 +42,11 @@ export interface GetAllStations {
   totalItems: number
 }
 
-export interface FileData {
-  file: File | null
-}
-
 export interface StationState {
   stations: Station[]
   totalStations: number
   station: StationDetails | null
   isLoading: boolean
   isError: any
-  importStationtResponse: ImportResponse | null
   createdStation: NewStation | null
 }

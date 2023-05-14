@@ -1,5 +1,3 @@
-import { ImportResponse } from './imortResponse'
-
 export interface CreateJourney {
   departure: string
   departureStationId: string
@@ -20,15 +18,10 @@ export interface GetAllJourneys {
   totalItems: number
 }
 
-export interface FileData {
-  file: File | null
-}
-
 export interface JourneyState {
   journeys: Journey[]
   totalJourneys: number
   journey: Journey | null
   isLoading: boolean
   isError: any
-  importJourneytResponse: ImportResponse | null
 }

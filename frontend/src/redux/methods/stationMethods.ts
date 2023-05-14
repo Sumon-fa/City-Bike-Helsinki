@@ -1,14 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosResponse } from 'axios'
 import axiosInstance from '../../common/axiosInstance'
-import {
-  CreateStation,
-  FileData,
-  GetAllStations,
-  NewStation,
-  StationDetails,
-} from '../../types/station'
-import { ImportResponse } from '../../types/imortResponse'
+import { CreateStation, GetAllStations, NewStation, StationDetails } from '../../types/station'
 
 export const getAllStations = createAsyncThunk(
   'getAllStations',
@@ -41,23 +34,6 @@ export const getStationDetails = createAsyncThunk(
     }
   }
 )
-
-export const importStation = createAsyncThunk('importStation', async (data: FileData, thunk) => {
-  try {
-    const response: AxiosResponse<ImportResponse, ImportResponse> = await axiosInstance.post(
-      '/api/v1/station/import',
-      data,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    )
-    return response.data
-  } catch (err: any) {
-    return thunk.rejectWithValue({ message: err.message })
-  }
-})
 
 export const newStation = createAsyncThunk('newStation', async (data: CreateStation, thunk) => {
   try {

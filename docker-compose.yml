@@ -10,7 +10,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=User ID=${USER_ID};Password=${PASSWORD};Server=db;Port=5432;Database=bikedb; Integrated Security=true;Pooling=true;
+      - ConnectionStrings__DefaultConnection=User ID=${USER_ID};Password=${PASSWORD};Server=db;Port=5432;Database=bike_db; Integrated Security=true;Pooling=true;
       - Host=http://localhost:3000
     ports:
       - '5000:5000'

@@ -1,7 +1,6 @@
-import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { GetAllJourneys, Journey, JourneyState } from '../../types/journey'
-import { getAllJourneys, importJourney, newJourney } from '../methods/journeyMethods'
-import { ImportResponse } from '../../types/imortResponse'
+import { getAllJourneys, newJourney } from '../methods/journeyMethods'
 
 const initialState: JourneyState = {
   journeys: [],
@@ -9,7 +8,6 @@ const initialState: JourneyState = {
   journey: null,
   isLoading: false,
   isError: null,
-  importJourneytResponse: null,
 }
 
 const journeySlice = createSlice({
@@ -74,34 +72,6 @@ const journeySlice = createSlice({
       state.isLoading = true
       state.isError = null
       state.journey = null
-    })
-
-    build.addCase(importJourney.fulfilled, (state, action: PayloadAction<ImportResponse>) => {
-      if (!action.payload) {
-        return state
-      }
-      if ('message' in action.payload) {
-        state.isError = action.payload
-        state.isLoading = false
-        state.importJourneytResponse = null
-        return state
-      }
-      state.importJourneytResponse = action.payload
-      state.isLoading = false
-      state.isError = null
-      console.log(current(state))
-
-      return state
-    })
-    build.addCase(importJourney.rejected, (state, action: PayloadAction<any>) => {
-      state.isError = action.payload
-      state.isLoading = false
-      state.importJourneytResponse = null
-    })
-    build.addCase(importJourney.pending, (state) => {
-      state.isLoading = true
-      state.isError = null
-      state.importJourneytResponse = null
     })
   },
 })
