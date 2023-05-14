@@ -1,12 +1,10 @@
 namespace Backend.Services;
 
 using Backend.DTOs;
-using CsvHelper.Configuration;
 
-public interface IBaseService<TModel, TDto, TMap>
+public interface IBaseService<TModel, TDto>
 where TModel : new()
 where TDto : BaseDTO<TModel>
-where TMap : ClassMap<TModel>, new()
 
 {
     Task<TModel?> CreateAsync(TDto request);

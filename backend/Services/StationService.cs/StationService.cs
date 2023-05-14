@@ -1,17 +1,12 @@
 namespace Backend.Services;
 
-using System.Text;
 using Backend.Common;
 using Backend.Db;
 using Backend.DTOs;
-using Backend.Mapper;
 using Backend.Models;
-using CsvHelper;
-using CsvHelper.Configuration;
-using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 
-public class StationService : BaseService<Station, StationDTO, StationCsvMap>, IStationService
+public class StationService : BaseService<Station, StationDTO>, IStationService
 {
     public StationService(AppDbContext dbContext) : base(dbContext)
     {
@@ -66,60 +61,5 @@ public class StationService : BaseService<Station, StationDTO, StationCsvMap>, I
             X = station.X,
             Y = station.Y
         };
-    }
-
-    public async Task<ImportResponseDTO> ImportStationCsvDataAsync(ImportDTO request)
-    {
-        try
-        {
-            using var streamReader = new StreamReader(request.File.OpenReadStream());
-            using var csvReader = new CsvReader(streamReader, true);
-
-            csvReader.Configuration.Encoding = Encoding.UTF8;
-            csvReader.Configuration.TrimOptions = TrimOptions.Trim;
-            csvReader.Configuration.ShouldSkipRecord = record =>
-           {
-               return record.Any(string.IsNullOrWhiteSpace);
-           };
-
-            csvReader.Configuration.RegisterClassMap<StationCsvMap>();
-
-            var records = csvReader.GetRecords<Station>().ToList();
-
-            await _dbContext.BulkInsertAsync(records);
-
-            var duplicates = await RemoveDuplicateStationsAsync();
-
-            return new ImportResponseDTO
-            {
-                SuccessMessage = $"{Math.Abs(records.Count - duplicates.Count)} data has been uploaded.",
-                StatusCode = 200,
-                DeletedData = $"{duplicates.Count} Duplicate data has been deleted Successfully!"
-            };
-        }
-        catch (CsvHelper.TypeConversion.TypeConverterException ex)
-        {
-            var lineNumber = ex.ReadingContext.RawRow;
-            var columnNumber = ex.ReadingContext.CurrentIndex + 1;
-            var errorMessage = $"Error on line {lineNumber}, column {columnNumber}: {ex.Message}";
-
-            throw ServiceException.BadRequest(errorMessage);
-        }
-    }
-
-    private async Task<ICollection<Station>> RemoveDuplicateStationsAsync()
-    {
-        var duplicates = await _dbContext.Stations.ToListAsync();
-
-        var distinctStation = duplicates
-            .GroupBy(t => new { t.ID })
-            .Select(g => g.OrderBy(t => t.FID)
-            .First());
-
-        var stationsToDelete = duplicates.Except(distinctStation).ToList();
-
-        await _dbContext.BulkDeleteAsync(stationsToDelete);
-
-        return stationsToDelete;
     }
 }

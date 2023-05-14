@@ -4,10 +4,9 @@ using Backend.Db;
 using Backend.DTOs;
 using CsvHelper.Configuration;
 
-public class BaseService<TModel, TDto, TMap> : IBaseService<TModel, TDto, TMap>
+public class BaseService<TModel, TDto> : IBaseService<TModel, TDto>
 where TModel : class, new()
 where TDto : BaseDTO<TModel>
-where TMap : ClassMap<TModel>, new()
 
 {
     protected readonly AppDbContext _dbContext;

@@ -6,20 +6,19 @@ using Backend.DTOs;
 using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 
-public abstract class BaseController<TModel, TDto, TMap> : ApiControllerBase
+public abstract class BaseController<TModel, TDto> : ApiControllerBase
 where TModel : new()
 where TDto : BaseDTO<TModel>
-where TMap : ClassMap<TModel>, new()
 
 {
-    private readonly IBaseService<TModel, TDto, TMap> _service;
+    private readonly IBaseService<TModel, TDto> _service;
 
-    protected BaseController(IBaseService<TModel, TDto, TMap> service)
+    protected BaseController(IBaseService<TModel, TDto> service)
     {
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    [HttpPost("new")]
+    [HttpPost("/dashboard/journey/new")]
     public virtual async Task<ActionResult<TModel>> CreateAsync(TDto request)
     {
         if (!ModelState.IsValid)

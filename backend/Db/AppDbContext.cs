@@ -43,6 +43,10 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Station>()
                     .HasIndex(s => s.ID).IsUnique();
+
+        modelBuilder.Entity<Journey>()
+                    .Property(j => j.Id)
+                    .HasDefaultValueSql("gen_random_uuid()");
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
