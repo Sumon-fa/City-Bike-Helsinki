@@ -21,7 +21,6 @@ public class AppDbContext : DbContext
         base.OnConfiguring(optionsBuilder);
 
         var connString = _config.GetConnectionString("DefaultConnection");
-        Console.WriteLine(connString);
 
         optionsBuilder.UseNpgsql(connString)
         .UseSnakeCaseNamingConvention();

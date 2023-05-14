@@ -1,11 +1,11 @@
 using Backend.Db;
 using Backend.Middlware;
 using Backend.Services;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
+var host = builder.Configuration.GetValue<string>("Host");
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(p => p.AddPolicy("corsPolicy", build =>
 {
-    build.WithOrigins("https://citybikehelsinki.netlify.app").AllowAnyMethod().AllowAnyHeader();
+    build.WithOrigins(host).AllowAnyMethod().AllowAnyHeader();
 })
 );
 
@@ -51,10 +51,12 @@ if (app.Environment.IsDevelopment())
         dbContext.Database.EnsureCreated();
     }
 }
+else
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseCors("corsPolicy");
-
-app.UseHttpsRedirection();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
