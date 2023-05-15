@@ -85,8 +85,6 @@ function AllStations() {
             marginTop: '0',
             width: '100%',
             marginBottom: '9%',
-            borderRadius: '0',
-            boxShadow: 'none',
           },
         }}
       >

@@ -23,7 +23,7 @@ public class AppDbContext : DbContext
         var connString = _config.GetConnectionString("DefaultConnection");
 
         optionsBuilder.UseNpgsql(connString)
-        .UseSnakeCaseNamingConvention();
+                      .UseSnakeCaseNamingConvention();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

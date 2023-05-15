@@ -79,8 +79,6 @@ function AllJourney() {
           [theme.breakpoints.down('sm')]: {
             width: '100%',
             marginBottom: '40px',
-            borderRadius: '0',
-            boxShadow: 'none',
           },
         }}
       >
