@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import CustomDashboard from '../../../Ui/CustomDashboard'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
 import { newStation } from '../../../../redux/methods/stationMethods'
-import ErrorAlert from '../../../Ui/ErrorAlert'
+import ErrorAlert from '../../../../components/Ui/ErrorAlert'
+import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
 
 const NewStation = () => {
   const [id, setId] = useState('')

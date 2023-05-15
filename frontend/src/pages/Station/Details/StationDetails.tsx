@@ -7,8 +7,8 @@ import { Link, TableContainer } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getStationDetails } from '../../../redux/methods/stationMethods'
 import { useParams } from 'react-router-dom'
-import theme from '../../Ui/theme'
-import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
+import { StyledTableRow, StyledTableCell } from '../../../components/Ui/tableStyles'
+import theme from '../../../components/Ui/theme'
 
 function StationDetails() {
   const { station } = useAppSelector((state) => state.station)

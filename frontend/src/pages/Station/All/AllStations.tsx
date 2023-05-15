@@ -5,23 +5,23 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Box, TableFooter, TablePagination, useMediaQuery } from '@mui/material'
-import TablePaginationActions from '../../Ui/TablePaginationActions'
+import { Box, Container, Link, TableFooter, TablePagination, useMediaQuery } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
-import { getAllJourneys } from '../../../redux/methods/journeyMethods'
-import { MyStyledImg } from './styles'
-import bikes from '../../../assets/bikes.jpg'
-import theme from '../../Ui/theme'
-import { StyledTableCell, StyledTableRow } from '../../Ui/tableStyles'
-import Search from '../../Search/Search'
-import ErrorAlert from '../../Ui/ErrorAlert'
+import { getAllStations } from '../../../redux/methods/stationMethods'
+import { NavLink } from 'react-router-dom'
+import theme from '../../../components/Ui/theme'
+import ErrorAlert from '../../../components/Ui/ErrorAlert'
+import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
+import Search from '../../../components/Search/Search'
+import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
 
-function AllJourney() {
+function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
-  const { journeys, totalJourneys, isError, isLoading } = useAppSelector((state) => state.journey)
+
+  const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -34,7 +34,7 @@ function AllJourney() {
       pageNumber: page + 1,
     }
 
-    dispatch(getAllJourneys(filter))
+    dispatch(getAllStations(filter))
   }, [page, searchKeyWord])
 
   const handleChangeRowsPerPage = (
@@ -43,18 +43,31 @@ function AllJourney() {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalJourneys) : 0
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalStations) : 0
 
   return (
-    <>
-      <MyStyledImg src={bikes} alt='bike-image' loading='lazy' />
+    <Container
+      sx={{
+        marginTop: '10%',
+        [theme.breakpoints.up('sm')]: {
+          width: '60%',
+        },
+      }}
+    >
       {isError && !isLoading && <ErrorAlert message={isError.message} />}
+
       <Box
         sx={{
-          '& .MuiTextField-root': { m: 2, width: '20ch' },
-          marginLeft: '67%',
+          '& .MuiTextField-root': {
+            mb: 1,
+            width: '20ch',
+            marginTop: '6%',
+          },
+          textAlign: 'end',
+          marginLeft: '0',
+
           [theme.breakpoints.down('sm')]: {
-            '& .MuiTextField-root': { m: 1, width: '13ch' },
+            '& .MuiTextField-root': { mb: 1, width: '13ch', marginTop: '8%' },
             textAlign: 'end',
             marginLeft: '0',
           },
@@ -62,16 +75,16 @@ function AllJourney() {
       >
         <Search setSearch={setSearch} />
       </Box>
-
       <TableContainer
         component={Paper}
         sx={{
           margin: '0 auto 120px auto',
-          width: '60%',
+          width: '100%',
           overflow: 'hidden',
           [theme.breakpoints.down('sm')]: {
+            marginTop: '0',
             width: '100%',
-            marginBottom: '40px',
+            marginBottom: '9%',
             borderRadius: '0',
             boxShadow: 'none',
           },
@@ -81,23 +94,30 @@ function AllJourney() {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell component='th' scope='row'>
-                Departure
+                Name
               </StyledTableCell>
-              <StyledTableCell align='center'>Return</StyledTableCell>
-              <StyledTableCell align='center'>Distance (km)</StyledTableCell>
-              {!matches && <StyledTableCell align='center'>Duration (min)</StyledTableCell>}
+              <StyledTableCell align='center'>Address</StyledTableCell>
+              <StyledTableCell align='center'>City</StyledTableCell>
+              {!matches && <StyledTableCell align='center'>Capacity</StyledTableCell>}
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {journeys.length > 0 &&
-              journeys.map((j) => (
-                <StyledTableRow key={j.id}>
+            {stations.length > 0 &&
+              stations.map((s) => (
+                <StyledTableRow key={s.fid}>
                   <StyledTableCell component='th' scope='row'>
-                    {j.departureStationName}
+                    <Link
+                      to={`/station/${s.fid}`}
+                      component={NavLink}
+                      color='secondary'
+                      underline='none'
+                    >
+                      {s.nimi}
+                    </Link>
                   </StyledTableCell>
-                  <StyledTableCell align='center'>{j.returnStationName}</StyledTableCell>
-                  <StyledTableCell align='center'>{j.coveredDistance.toFixed(2)}</StyledTableCell>
-                  {!matches && <StyledTableCell align='center'>{j.duration}</StyledTableCell>}
+                  <StyledTableCell align='center'>{s.osoite}</StyledTableCell>
+                  <StyledTableCell align='center'>{s.kaupunki}</StyledTableCell>
+                  {!matches && <StyledTableCell align='center'>{s.kapasiteet}</StyledTableCell>}
                 </StyledTableRow>
               ))}
             {emptyRows > 0 && (
@@ -110,8 +130,8 @@ function AllJourney() {
             <StyledTableRow>
               <TablePagination
                 rowsPerPageOptions={[8]}
-                colSpan={4}
-                count={totalJourneys}
+                colSpan={5}
+                count={totalStations}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
@@ -128,8 +148,8 @@ function AllJourney() {
           </TableFooter>
         </Table>
       </TableContainer>
-    </>
+    </Container>
   )
 }
 
-export default AllJourney
+export default AllStations

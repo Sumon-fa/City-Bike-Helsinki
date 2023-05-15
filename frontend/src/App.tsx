@@ -2,14 +2,12 @@ import React from 'react'
 import Navbar from './components/Header/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Footer from './components/Footer/Footer'
-import AllStations from './components/Station/All/AllStations'
-import StationDetails from './components/Station/Details/StationDetails'
-import AllJourney from './components/Journey/All/AllJourneys'
-import Dashboard from './components/Dashboard/Dashboard'
-import NewJourney from './components/Dashboard/Journey/New/NewJourney'
-import ImportJorney from './components/Dashboard/Journey/Import/ImportJorney'
-import ImportStation from './components/Dashboard/Station/Import/ImportStation'
-import NewStation from './components/Dashboard/Station/New/NewStation'
+import AllJourney from './pages/Journey/All/AllJourneys'
+import AllStations from './pages/Station/All/AllStations'
+import StationDetails from './pages/Station/Details/StationDetails'
+import Dashboard from './pages/Dashboard/Dashboard'
+import NewJourney from './pages/Dashboard/Journey/New/NewJourney'
+import NewStation from './pages/Dashboard/Station/New/NewStation'
 
 function App() {
   return (
@@ -21,9 +19,7 @@ function App() {
         <Route path='/station/:id' element={<StationDetails />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/dashboard/journey/new' element={<NewJourney />} />
-        <Route path='/dashboard/journey/import' element={<ImportJorney />} />
         <Route path='/dashboard/station/new' element={<NewStation />} />
-        <Route path='/dashboard/station/import' element={<ImportStation />} />
       </Routes>
       <Footer />
     </div>

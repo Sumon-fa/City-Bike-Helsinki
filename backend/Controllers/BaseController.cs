@@ -3,7 +3,6 @@ namespace Backend.Controllers;
 using Backend.Services;
 using Backend.Common;
 using Backend.DTOs;
-using CsvHelper.Configuration;
 using Microsoft.AspNetCore.Mvc;
 
 public abstract class BaseController<TModel, TDto> : ApiControllerBase
@@ -18,7 +17,7 @@ where TDto : BaseDTO<TModel>
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    [HttpPost("/dashboard/journey/new")]
+    [HttpPost("new")]
     public virtual async Task<ActionResult<TModel>> CreateAsync(TDto request)
     {
         if (!ModelState.IsValid)

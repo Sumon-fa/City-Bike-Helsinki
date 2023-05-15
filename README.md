@@ -8,5 +8,5 @@
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.6-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
 
-- Frontend: CSS, TypeScript, React, Redux Toolkit
+- Frontend: Material Ui, TypeScript, React, Redux Toolkit
 - Backend: ASP .NET Core, Entity Framework Core, PostgreSQL

@@ -3,7 +3,6 @@ namespace Backend.Controllers;
 using Backend.Models;
 using Backend.Services;
 using Backend.DTOs;
-using Backend.Common;
 using Microsoft.AspNetCore.Mvc;
 
 public class StationController : BaseController<Station, StationDTO>
@@ -14,13 +13,13 @@ public class StationController : BaseController<Station, StationDTO>
         _service = service;
     }
 
-    [HttpGet]
+    [HttpGet("/api/v1/stations")]
     public async Task<IActionResult> GetAllAsync([FromQuery] FilterDTO filter)
     {
         return Ok(await _service.GetAllAsync(filter));
     }
 
-    [HttpGet("/station/{fid}")]
+    [HttpGet("{fid}")]
     public async Task<ActionResult<StationViewResponseDTO>> GetSingleStation(int fid)
     {
         return Ok(await _service.GetSingleStationAsync(fid));
