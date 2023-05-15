@@ -48,7 +48,7 @@ function AllStations() {
   return (
     <Container
       sx={{
-        marginTop: '10%',
+        marginTop: '6%',
         [theme.breakpoints.up('sm')]: {
           width: '60%',
         },

@@ -48,7 +48,6 @@ function AllJourney() {
   return (
     <Container
       sx={{
-        marginTop: '10%',
         [theme.breakpoints.up('sm')]: {
           width: '60%',
         },
