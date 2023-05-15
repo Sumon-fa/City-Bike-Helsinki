@@ -19,7 +19,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
 
         if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
-            query = query.Where(j => j.DepartureStationName.StartsWith(filter.SearchKeyWord.Trim()));
+            query = query.Where(j => j.DepartureStationName.ToLower().StartsWith(filter.SearchKeyWord.Trim()));
         }
 
         query = query.Select(journey => new Journey
