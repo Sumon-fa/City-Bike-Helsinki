@@ -40,8 +40,8 @@ https://citybikehelsinki.netlify.app
 - Create a `.env ` file in root directory
 
   ```
-   USER_ID=`<Your Postgresql User Name>`
-   PASSWORD=`<Your Postgresql Password>`
+   USER_ID=<Your Postgresql User Name>
+   PASSWORD=<Your Postgresql Password>
   ```
 
 - Create a `.env` file in frontend directory

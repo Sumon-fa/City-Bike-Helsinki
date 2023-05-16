@@ -5,7 +5,15 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
-import { Box, Container, Link, TableFooter, TablePagination, useMediaQuery } from '@mui/material'
+import {
+  Box,
+  Container,
+  Link,
+  TableFooter,
+  TablePagination,
+  Typography,
+  useMediaQuery,
+} from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllStations } from '../../../redux/methods/stationMethods'
 import { NavLink } from 'react-router-dom'
@@ -48,20 +56,36 @@ function AllStations() {
   return (
     <Container
       sx={{
-        marginTop: '6%',
+        marginTop: '18%',
+
         [theme.breakpoints.up('sm')]: {
+          marginTop: '6%',
           width: '60%',
         },
       }}
     >
       {isError && !isLoading && <ErrorAlert message={isError.message} />}
+      <Typography
+        variant='h4'
+        color='secondary'
+        sx={{
+          textAlign: 'center',
+          fontSize: '2rem',
+          fontWeight: 600,
+          [theme.breakpoints.down('sm')]: {
+            fontSize: '1.5rem',
+          },
+        }}
+      >
+        List of Station
+      </Typography>
 
       <Box
         sx={{
           '& .MuiTextField-root': {
             mb: 1,
             width: '20ch',
-            marginTop: '6%',
+            marginTop: '8%',
           },
           textAlign: 'end',
           marginLeft: '0',
@@ -70,6 +94,7 @@ function AllStations() {
             '& .MuiTextField-root': { mb: 1, width: '13ch', marginTop: '8%' },
             textAlign: 'end',
             marginLeft: '0',
+            marginTop: '11%',
           },
         }}
       >
