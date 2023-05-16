@@ -58,11 +58,7 @@ https://citybikehelsinki.netlify.app
 
 - To list the user secrets
 
-```
-
-   run `dotnet user-secrets list`
-
-```
+  - run `dotnet user-secrets list`
 
 - To update database
   - install `dotnet tool install --global dotnet-ef`
@@ -116,8 +112,22 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ## Endpoint
 
+```
 [GET] http://localhost:5000/api/v1/journeys
+```
+
+```
 [POST] http://localhost:5000/api/v1/journey/new
+```
+
+```
 [GET] http://localhost:5000/api/v1/stations
+```
+
+```
 [POST] http://localhost:5000/api/v1/staion/new
+```
+
+```
 [GET] http://localhost:5000/api/v1/journey/{fid}
+```
