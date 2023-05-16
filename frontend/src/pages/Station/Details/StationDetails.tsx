@@ -9,12 +9,22 @@ import { getStationDetails } from '../../../redux/methods/stationMethods'
 import { useParams } from 'react-router-dom'
 import { StyledTableRow, StyledTableCell } from '../../../components/Ui/tableStyles'
 import theme from '../../../components/Ui/theme'
+import { stationActions } from '../../../redux/slices/stationSlice'
+import ErrorAlert from '../../../components/Ui/ErrorAlert'
 
 function StationDetails() {
-  const { station } = useAppSelector((state) => state.station)
+  const { station, isError, isLoading } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   const params = useParams()
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        dispatch(stationActions.clearError())
+      }, 1000)
+    }
+  }, [isError])
 
   useEffect(() => {
     dispatch(getStationDetails(Number(params.id)))
@@ -29,6 +39,8 @@ function StationDetails() {
         },
       }}
     >
+      {isError && !isLoading && <ErrorAlert message={isError.message} />}
+
       <Typography
         variant='h4'
         color='secondary'

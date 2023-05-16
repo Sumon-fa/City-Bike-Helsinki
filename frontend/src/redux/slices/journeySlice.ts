@@ -75,6 +75,7 @@ const journeySlice = createSlice({
     })
   },
 })
+
 export const journeyActions = journeySlice.actions
 
 export default journeySlice

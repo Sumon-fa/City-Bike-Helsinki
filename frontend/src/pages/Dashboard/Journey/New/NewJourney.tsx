@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
 import { newJourney } from '../../../../redux/methods/journeyMethods'
 import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
 import ErrorAlert from '../../../../components/Ui/ErrorAlert'
+import { journeyActions } from '../../../../redux/slices/journeySlice'
 
 const NewJourney = () => {
   const [departure, setDeparture] = useState('')
@@ -18,6 +19,14 @@ const NewJourney = () => {
 
   const { isError, isLoading } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        dispatch(journeyActions.clearError())
+      }, 1000)
+    }
+  }, [isError])
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

@@ -22,6 +22,7 @@ import ErrorAlert from '../../../components/Ui/ErrorAlert'
 import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import Search from '../../../components/Search/Search'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
+import { stationActions } from '../../../redux/slices/stationSlice'
 
 function AllStations() {
   const [page, setPage] = useState(0)
@@ -35,6 +36,13 @@ function AllStations() {
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
   }
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        dispatch(stationActions.clearError())
+      }, 1000)
+    }
+  }, [isError])
 
   useEffect(() => {
     const filter = {

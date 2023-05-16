@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
 import { newStation } from '../../../../redux/methods/stationMethods'
 import ErrorAlert from '../../../../components/Ui/ErrorAlert'
 import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
+import { stationActions } from '../../../../redux/slices/stationSlice'
+import { useNavigate } from 'react-router-dom'
 
 const NewStation = () => {
   const [id, setId] = useState('')
@@ -22,6 +24,15 @@ const NewStation = () => {
 
   const { isError, isLoading } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        dispatch(stationActions.clearError())
+      }, 1000)
+    }
+  }, [isError])
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
