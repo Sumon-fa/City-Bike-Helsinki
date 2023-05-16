@@ -13,7 +13,7 @@ import { stationActions } from '../../../redux/slices/stationSlice'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'
 
 function StationDetails() {
-  const { station, isError, isLoading } = useAppSelector((state) => state.station)
+  const { stationDetails, isError, isLoading } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   const params = useParams()
@@ -82,21 +82,25 @@ function StationDetails() {
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {station && (
+            {stationDetails && (
               <StyledTableRow>
                 <StyledTableCell component='th' scope='row'>
                   <Link
-                    href={`https://www.google.com/maps/place/${station.address}/@${station.x},${station.y}`}
+                    href={`https://www.google.com/maps/place/${stationDetails.address}/@${stationDetails.x},${stationDetails.y}`}
                     target='blank'
                     color='secondary'
                     underline='none'
                   >
-                    {station.name}
+                    {stationDetails.name}
                   </Link>
                 </StyledTableCell>
-                <StyledTableCell align='center'>{station.address}</StyledTableCell>
-                <StyledTableCell align='center'>{station.numOfStartingJourney}</StyledTableCell>
-                <StyledTableCell align='center'>{station.numOfEndingJourney}</StyledTableCell>
+                <StyledTableCell align='center'>{stationDetails.address}</StyledTableCell>
+                <StyledTableCell align='center'>
+                  {stationDetails.numOfStartingJourney}
+                </StyledTableCell>
+                <StyledTableCell align='center'>
+                  {stationDetails.numOfEndingJourney}
+                </StyledTableCell>
               </StyledTableRow>
             )}
           </TableBody>

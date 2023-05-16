@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class JourneyDTO : BaseDTO<Journey>
 {
-    public Guid Id { get; set; }
     [DepartureTime]
     public DateTime Departure { get; set; }
     [Required]
@@ -49,7 +48,6 @@ public class JourneyDTO : BaseDTO<Journey>
             throw ServiceException.BadRequest("Duplicate entry.Please check the Return, ReturnStationId & ReturnStationName ");
         }
 
-        model.Id = Id;
         model.Departure = Departure;
         model.DepartureStationName = DepartureStationName.Trim();
         model.DepartureStationId = DepartureStationId.Trim();

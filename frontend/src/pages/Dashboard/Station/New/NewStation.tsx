@@ -22,7 +22,7 @@ const NewStation = () => {
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
 
-  const { isError, isLoading } = useAppSelector((state) => state.station)
+  const { isError, isLoading, isSuccess } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -30,9 +30,14 @@ const NewStation = () => {
     if (isError) {
       setTimeout(() => {
         dispatch(stationActions.clearError())
-      }, 1000)
+      }, 5000)
     }
-  }, [isError])
+
+    if (isSuccess) {
+      navigate('/sations')
+      dispatch(stationActions.clearSuccess())
+    }
+  }, [isError, isSuccess])
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

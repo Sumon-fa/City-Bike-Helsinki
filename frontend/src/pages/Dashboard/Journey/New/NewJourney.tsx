@@ -6,6 +6,7 @@ import { newJourney } from '../../../../redux/methods/journeyMethods'
 import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
 import ErrorAlert from '../../../../components/Ui/ErrorAlert'
 import { journeyActions } from '../../../../redux/slices/journeySlice'
+import { useNavigate } from 'react-router-dom'
 
 const NewJourney = () => {
   const [departure, setDeparture] = useState('')
@@ -17,16 +18,22 @@ const NewJourney = () => {
   const [coveredDistance, setCoveredDistance] = useState(0)
   const [duration, setDuration] = useState(0)
 
-  const { isError, isLoading } = useAppSelector((state) => state.journey)
+  const { isError, isLoading, isSuccess } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (isError) {
       setTimeout(() => {
         dispatch(journeyActions.clearError())
-      }, 1000)
+      }, 5000)
     }
-  }, [isError])
+
+    if (isSuccess) {
+      navigate('/')
+      dispatch(journeyActions.clearSuccess())
+    }
+  }, [isError, isSuccess])
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

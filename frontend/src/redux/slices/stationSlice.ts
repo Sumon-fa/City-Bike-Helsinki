@@ -5,10 +5,11 @@ import { getAllStations, getStationDetails, newStation } from '../methods/statio
 const initialState: StationState = {
   stations: [],
   totalStations: 0,
-  station: null,
+  stationDetails: null,
   isLoading: false,
   isError: null,
   createdStation: null,
+  isSuccess: false,
 }
 
 const stationSlice = createSlice({
@@ -17,6 +18,9 @@ const stationSlice = createSlice({
   reducers: {
     clearError(state) {
       state.isError = null
+    },
+    clearSuccess(state) {
+      state.isSuccess = false
     },
   },
   extraReducers: (build) => {
@@ -57,10 +61,10 @@ const stationSlice = createSlice({
       if ('message' in action.payload) {
         state.isError = action.payload
         state.isLoading = false
-        state.station = null
+        state.stationDetails = null
         return state
       }
-      state.station = action.payload
+      state.stationDetails = action.payload
       state.isLoading = false
       state.isError = null
       return state
@@ -68,12 +72,12 @@ const stationSlice = createSlice({
     build.addCase(getStationDetails.rejected, (state, action: PayloadAction<any>) => {
       state.isError = action.payload
       state.isLoading = false
-      state.station = null
+      state.stationDetails = null
     })
     build.addCase(getStationDetails.pending, (state) => {
       state.isLoading = true
       state.isError = null
-      state.station = null
+      state.stationDetails = null
     })
 
     build.addCase(newStation.fulfilled, (state, action: PayloadAction<NewStation>) => {
@@ -83,10 +87,12 @@ const stationSlice = createSlice({
       if ('message' in action.payload) {
         state.isError = action.payload
         state.isLoading = false
-        state.station = null
+        state.createdStation = null
+        state.isSuccess = false
         return state
       }
       state.createdStation = action.payload
+      state.isSuccess = true
       state.isLoading = false
       state.isError = null
       return state
@@ -95,11 +101,13 @@ const stationSlice = createSlice({
       state.isError = action.payload
       state.isLoading = false
       state.createdStation = null
+      state.isSuccess = false
     })
     build.addCase(newStation.pending, (state) => {
       state.isLoading = true
       state.isError = null
       state.createdStation = null
+      state.isSuccess = false
     })
   },
 })

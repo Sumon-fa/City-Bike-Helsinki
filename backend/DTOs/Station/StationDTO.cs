@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 public class StationDTO : BaseDTO<Station>
 {
-    public int FID { get; set; }
     [Required]
     public string ID { get; set; } = null!;
     [Required]
@@ -42,7 +41,7 @@ public class StationDTO : BaseDTO<Station>
             throw ServiceException.BadRequest($"ID {ID} already exists");
         }
 
-        model.FID = FID;
+        Console.WriteLine(model.ID);
         model.ID = ID.Trim();
         model.Nimi = Nimi.Trim();
         model.Namn = Namn.Trim();

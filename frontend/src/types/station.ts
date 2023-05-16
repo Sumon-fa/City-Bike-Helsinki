@@ -45,8 +45,9 @@ export interface GetAllStations {
 export interface StationState {
   stations: Station[]
   totalStations: number
-  station: StationDetails | null
+  stationDetails: StationDetails | null
   isLoading: boolean
   isError: any
   createdStation: NewStation | null
+  isSuccess: boolean
 }

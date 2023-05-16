@@ -24,4 +24,5 @@ export interface JourneyState {
   journey: Journey | null
   isLoading: boolean
   isError: any
+  isSuccess: boolean
 }

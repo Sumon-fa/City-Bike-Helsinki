@@ -27,7 +27,6 @@ export const newJourney = createAsyncThunk('newJourney', async (journey: CreateJ
       '/api/v1/journey/new',
       journey
     )
-
     return response.data
   } catch (err: any) {
     return thunk.rejectWithValue({ message: err.message })

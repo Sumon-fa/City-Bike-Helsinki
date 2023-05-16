@@ -1,10 +1,13 @@
 namespace Backend.Models;
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Station
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
     public int FID { get; set; }
     public string ID { get; set; } = null!;
     public string Nimi { get; set; } = null!;
