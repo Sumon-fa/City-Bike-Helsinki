@@ -23,15 +23,26 @@ import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableSty
 import Search from '../../../components/Search/Search'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
 import { stationActions } from '../../../redux/slices/stationSlice'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
+
+enum SortType {
+  Asc = 'Asc',
+  Desc = 'Desc',
+}
 
 function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const [sortType, setSortType] = useState<string>(SortType.Desc)
 
   const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
+
+  const SortTypeHandler = () => {
+    setSortType((prev) => (prev === SortType.Desc ? SortType.Asc : SortType.Desc))
+  }
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
@@ -48,10 +59,11 @@ function AllStations() {
     const filter = {
       searchKeyWord: searchKeyWord,
       pageNumber: page + 1,
+      sort: sortType,
     }
 
     dispatch(getAllStations(filter))
-  }, [page, searchKeyWord])
+  }, [page, searchKeyWord, sortType])
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -126,6 +138,7 @@ function AllStations() {
             <StyledTableRow>
               <StyledTableCell component='th' scope='row'>
                 Name
+                <ImportExportIcon sx={{ cursor: 'pointer' }} onClick={SortTypeHandler} />
               </StyledTableCell>
               <StyledTableCell align='center'>Address</StyledTableCell>
               <StyledTableCell align='center'>City</StyledTableCell>

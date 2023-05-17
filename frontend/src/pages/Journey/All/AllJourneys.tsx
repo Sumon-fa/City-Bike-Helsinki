@@ -23,14 +23,25 @@ import Search from '../../../components/Search/Search'
 import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
 import { journeyActions } from '../../../redux/slices/journeySlice'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
+
+enum SortType {
+  Asc = 'Asc',
+  Desc = 'Desc',
+}
 
 function AllJourney() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
+  const [sortType, setSortType] = useState<string>(SortType.Desc)
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const { journeys, totalJourneys, isError, isLoading } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
+
+  const SortTypeHandler = () => {
+    setSortType((prev) => (prev === SortType.Desc ? SortType.Asc : SortType.Desc))
+  }
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
@@ -48,10 +59,11 @@ function AllJourney() {
     const filter = {
       searchKeyWord: searchKeyWord,
       pageNumber: page + 1,
+      sort: sortType,
     }
 
     dispatch(getAllJourneys(filter))
-  }, [page, searchKeyWord])
+  }, [page, searchKeyWord, sortType])
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,12 +76,14 @@ function AllJourney() {
   return (
     <Container
       sx={{
+        marginTop: '18%',
+
         [theme.breakpoints.up('sm')]: {
+          marginTop: '6%',
           width: '60%',
         },
       }}
     >
-      <MyStyledImg src={bikes} alt='bike-image' loading='lazy' />
       {isError && !isLoading && <ErrorAlert message={isError.message} />}
       <Typography
         variant='h4'
@@ -120,6 +134,7 @@ function AllJourney() {
             <StyledTableRow>
               <StyledTableCell component='th' scope='row'>
                 Departure
+                <ImportExportIcon sx={{ cursor: 'pointer' }} onClick={SortTypeHandler} />
               </StyledTableCell>
               <StyledTableCell align='center'>Return</StyledTableCell>
               <StyledTableCell align='center'>Distance (km)</StyledTableCell>

@@ -47,7 +47,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Journey>()
                     .Property(j => j.Id)
                     .HasDefaultValueSql("gen_random_uuid()");
- }
+    }
 
     public DbSet<Journey> Journeys { get; set; } = null!;
     public DbSet<Station> Stations { get; set; } = null!;

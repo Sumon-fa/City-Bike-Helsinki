@@ -18,8 +18,12 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
 
         if (!string.IsNullOrEmpty(filter.SearchKeyWord))
         {
-            query = query.Where(s => s.Nimi.ToLower().StartsWith(filter.SearchKeyWord.ToLower()));
+            query = query.Where(s => s.Nimi
+                         .ToLower()
+                         .StartsWith(filter.SearchKeyWord.ToLower()));
         }
+
+        var totalItems = await query.CountAsync();
 
         var result = await query
             .AsNoTracking()
@@ -27,6 +31,19 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
             .ToListAsync();
+
+        switch (filter.Sort)
+        {
+            case FilterDTO.SortType.Asc:
+                result = result.OrderBy(s => s.Nimi).ToList();
+                break;
+            case FilterDTO.SortType.Desc:
+                result = result.OrderByDescending(s => s.Nimi).ToList();
+                break;
+            default:
+                result = result.OrderByDescending(s => s.Nimi).ToList();
+                break;
+        }
 
         if (result is null || result.Count < 1)
         {
@@ -36,7 +53,7 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
         return new GetAllResultResponseDTO<Station>
         {
             Result = result,
-            TotalItems = await query.CountAsync()
+            TotalItems = totalItems
         };
     }
 

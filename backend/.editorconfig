@@ -99,3 +99,10 @@ dotnet_diagnostic.SA1401.severity = None
 
 # Partial elements should be documented 
 dotnet_diagnostic.SA1601.severity = None
+dotnet_diagnostic.IDE0066.severity = None
+dotnet_diagnostic.IDE0270.severity = None
+
+
+
+
+

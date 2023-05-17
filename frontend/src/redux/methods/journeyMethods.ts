@@ -5,12 +5,12 @@ import axiosInstance from '../../common/axiosInstance'
 
 export const getAllJourneys = createAsyncThunk(
   'getAlljourneys',
-  async (filter: { searchKeyWord: string; pageNumber: number }, thunkApi) => {
+  async (filter: { searchKeyWord: string; pageNumber: number; sort: string }, thunkApi) => {
     try {
       const pageSize = 8
       let link = '/api/v1/journeys'
       if (filter) {
-        link = `/api/v1/journeys?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.searchKeyWord}`
+        link = `/api/v1/journeys?page=${filter.pageNumber}&pageSize=${pageSize}&searchKeyWord=${filter.searchKeyWord}&sort=${filter.sort}`
       }
 
       const response: AxiosResponse<GetAllJourneys, GetAllJourneys> = await axiosInstance.get(link)

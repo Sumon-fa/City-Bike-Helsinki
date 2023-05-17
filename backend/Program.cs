@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Backend.Db;
 using Backend.Middlware;
 using Backend.Services;
@@ -8,9 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 var host = builder.Configuration.GetValue<string>("Host");
 
 // Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services
+.AddControllers()
+.AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
+builder.Services.AddDbContext<AppDbContext>();
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 options.SuppressModelStateInvalidFilter = true);
 

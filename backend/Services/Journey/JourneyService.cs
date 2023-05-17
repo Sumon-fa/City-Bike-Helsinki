@@ -19,7 +19,9 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
 
         if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
-            query = query.Where(j => j.DepartureStationName.ToLower().StartsWith(filter.SearchKeyWord.Trim()));
+            query = query.Where(j => j.DepartureStationName
+                         .ToLower()
+                         .StartsWith(filter.SearchKeyWord.Trim()));
         }
 
         query = query.Select(journey => new Journey
@@ -43,6 +45,19 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
             .ToListAsync();
+
+        switch (filter.Sort)
+        {
+            case FilterDTO.SortType.Asc:
+                result = result.OrderBy(j => j.Departure).ToList();
+                break;
+            case FilterDTO.SortType.Desc:
+                result = result.OrderByDescending(j => j.Departure).ToList();
+                break;
+            default:
+                result = result.OrderByDescending(j => j.Departure).ToList();
+                break;
+        }
 
         if (result is null || result.Count < 1)
         {
