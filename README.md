@@ -40,6 +40,7 @@ https://citybikehelsinki.netlify.app
 - Dashboard
 - Create Journey
 - Create Station
+- Search, Pagination, Order by Column
 
 ## Prerequisites
 
@@ -132,18 +133,38 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ### `Journey-Page`
 
-![result](frontend/src/assets/journey.png)
+<img src="frontend/src/assets/journey.png" width="375" height="667"/>
+</br>
+</br>
+journey list for bigger screen
+</br>
+</br>
+
 ![result](frontend/src/assets/journeybig.png)
 
 ### `Station-Page`
 
-![result](frontend/src/assets/station.png)
+<img src="frontend/src/assets/station.png" width="375" height="667"/>
+</br>
+</br>
+station list for big screen
+</br>
+</br>
+
 ![result](frontend/src/assets/stationbig.png)
 
 ### `Station-Details-Page`
 
-![result](frontend/src/assets/sationdetails.png)
+<img src="frontend/src/assets/stationdetails.png" width="375" height="667"/>
+</br>
+</br>
+station info in big screen
+
 ![result](frontend/src/assets/detailsbig.png)
+</br>
+</br>
+station address showing on google map
+
 ![result](frontend/src/assets/googlemap.png)
 
 ### `Create-Journey-Page`
