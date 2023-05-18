@@ -26,15 +26,6 @@ function Dashboard() {
             <Typography>6000</Typography>
           </Item>
         </Grid>
-        <Grid item xs={12}>
-          <Item>Total Station</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>Top 5 Return Station </Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>Top 5 Departure Station</Item>
-        </Grid>
       </Grid>
     </CustomDashboard>
   )

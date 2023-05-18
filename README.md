@@ -16,6 +16,18 @@
 
 City Bike Helsinki is a convenient and eco-friendly bike service that allows residents and visitors of Helsinki to easily navigate the city on two wheels. The website listed all the stations and journeys of Helsinki region. You can create journey and station through this website.
 
+## Table of Content
+
+- [Live Demo](#Live-Demo)
+- [Features](#Features)
+- [Prerequisites](#Prerequisites)
+- [Configuration](#Configuration)
+- [Future Work](#Future-Work)
+- [Requirement](#Requirement)
+- [How to run the project](#How-to-run-the-project)
+- [Result](#Result)
+- [Endpoint](#Endpoint)
+
 ## Live Demo
 
 https://citybikehelsinki.netlify.app
@@ -29,12 +41,12 @@ https://citybikehelsinki.netlify.app
 - Create Journey
 - Create Station
 
-## Prerequisites:
+## Prerequisites
 
 - Node v16
-- .Net Core v6
+- .NET 6.0
 
-## Configuration:
+## Configuration
 
 - `git clone https://github.com/Sumon-fa/City-Bike-Helsinki.git`
 - Create a `.env ` file in root directory
@@ -83,7 +95,7 @@ https://citybikehelsinki.netlify.app
 ## Import Journey from csv file
 
 If there is permission issue, you can set permission clicking properties of the file or alternatively, you can use \ before Copy.
-\Copy is little bit slower than \Copy.
+\Copy is little bit slower than Copy.
 
 ```
 COPY journeys (departure, return, departure_station_id, departure_station_name, return_station_id, return_station_name, covered_distance, duration) FROM '/path/to/.csv' WITH (FORMAT csv, ENCODING 'UTF8', HEADER true) WHERE duration >= 10 AND covered_distance >= 10;
@@ -110,10 +122,50 @@ WHERE duplicates.row_num > 1
 COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaattor, kapasiteet, x, y) FROM '/path/to/.csv' WITH (FORMAT csv, ENCODING 'UTF8', HEADER true);
 ```
 
+## ToDo
+
+- remove duplicate code
+- create style file for each component
+- fix unsupported engine warning
+
+## Result
+
+### `Journey-Page`
+
+![result](frontend/src/assets/journey.png)
+![result](frontend/src/assets/journeybig.png)
+
+### `Station-Page`
+
+![result](frontend/src/assets/station.png)
+![result](frontend/src/assets/stationbig.png)
+
+### `Station-Details-Page`
+
+![result](frontend/src/assets/sationdetails.png)
+![result](frontend/src/assets/detailsbig.png)
+![result](frontend/src/assets/googlemap.png)
+
+### `Create-Journey-Page`
+
+![result](frontend/src/assets/createjourney.png)
+
+### `Create-Station-Page`
+
+![result](frontend/src/assets/createstation.png)
+
+### `Dashboard-page`
+
+![result](frontend/src/assets/dashboard.png)
+
+### `Drawer`
+
+![result](frontend/src/assets/drawer.png)
+
 ## Endpoint
 
 ```
-[GET] http://localhost:5000/api/v1/journeys
+[GET] http://localhost:5000/api/v1/journeys?page=1&pageSize=8&sort=Desc
 ```
 
 ```
@@ -121,7 +173,7 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 ```
 
 ```
-[GET] http://localhost:5000/api/v1/stations
+[GET] http://localhost:5000/api/v1/stations/?page=1&pageSize=2&sort=Asc
 ```
 
 ```
@@ -129,5 +181,5 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 ```
 
 ```
-[GET] http://localhost:5000/api/v1/journey/{fid}
+[GET] http://localhost:5000/api/v1/station/{fid}
 ```

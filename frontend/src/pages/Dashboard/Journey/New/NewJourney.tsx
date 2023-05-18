@@ -201,7 +201,6 @@ const NewJourney = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='returnStationName'
                 name='returnStationName'
                 label='Return Station Name'

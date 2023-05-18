@@ -86,7 +86,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='id'
                 name='id'
                 fullWidth
@@ -116,7 +115,6 @@ const NewStation = () => {
                 size='small'
                 variant='outlined'
                 color='secondary'
-                required
                 fullWidth
                 value={nimi}
                 onChange={(e) => setNimi(e.target.value)}
@@ -135,7 +133,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='namn'
                 name='namn'
                 label='Namn'
@@ -160,7 +157,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='name'
                 name='name'
                 fullWidth
@@ -190,7 +186,6 @@ const NewStation = () => {
                 size='small'
                 color='secondary'
                 variant='outlined'
-                required
                 fullWidth
                 value={osoite}
                 onChange={(e) => setOsoite(e.target.value)}
@@ -209,7 +204,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='adress'
                 name='adress'
                 label='Adress'
@@ -234,7 +228,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='kaupunki'
                 name='kaupunki'
                 label='Kaupunki'
@@ -259,7 +252,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='stad'
                 name='stad'
                 label='Stad'
@@ -284,7 +276,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='operaattor'
                 name='operaator'
                 label='Operaattor'
@@ -310,7 +301,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                required
                 id='kapasiteet'
                 name='kapasiteet'
                 label='Kapasiteet'
@@ -341,7 +331,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                required
                 id='x'
                 name='x'
                 label='X'
@@ -372,7 +361,6 @@ const NewStation = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                required
                 id='y'
                 name='y'
                 label='Y'
