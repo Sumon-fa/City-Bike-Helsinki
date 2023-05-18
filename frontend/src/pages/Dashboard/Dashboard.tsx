@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Toolbar from '@mui/material/Toolbar'
 import Divider from '@mui/material/Divider'
 import { Grid, Paper, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import CustomDashboard from '../../components/CustomDashboard/CustomDashboard'
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook'
+import { getAllJourneys } from '../../redux/methods/journeyMethods'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#0069ac',
@@ -21,7 +23,7 @@ function Dashboard() {
             <Typography>Total Journey</Typography>
             <Toolbar />
             <Divider />
-            <Typography>5000</Typography>
+            <Typography>6000</Typography>
           </Item>
         </Grid>
         <Grid item xs={12}>

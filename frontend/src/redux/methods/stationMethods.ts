@@ -41,7 +41,6 @@ export const newStation = createAsyncThunk('newStation', async (data: CreateStat
       '/api/v1/station/new',
       data
     )
-    console.log(response.data)
 
     return response.data
   } catch (err: any) {

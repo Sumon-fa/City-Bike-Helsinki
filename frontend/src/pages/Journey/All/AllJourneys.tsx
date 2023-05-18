@@ -14,8 +14,6 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import { getAllJourneys } from '../../../redux/methods/journeyMethods'
-import { MyStyledImg } from './styles'
-import bikes from '../../../assets/bikes.jpg'
 import theme from '../../../components/Ui/theme'
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'

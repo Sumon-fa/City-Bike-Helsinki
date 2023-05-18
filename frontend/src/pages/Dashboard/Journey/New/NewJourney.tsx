@@ -7,12 +7,18 @@ import CustomDashboard from '../../../../components/CustomDashboard/CustomDashbo
 import ErrorAlert from '../../../../components/Ui/ErrorAlert'
 import { journeyActions } from '../../../../redux/slices/journeySlice'
 import { useNavigate } from 'react-router-dom'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DemoItem } from '@mui/x-date-pickers/internals/demo'
+import dayjs from 'dayjs'
+import { DateTimePicker } from '@mui/x-date-pickers'
 
 const NewJourney = () => {
-  const [departure, setDeparture] = useState('')
+  const [departure, setDeparture] = useState<Date | null>(null)
   const [departureStationId, setDepartureStationId] = useState('')
   const [departureStationName, setDepartureStationName] = useState('')
-  const [back, setBack] = useState('')
+  const [back, setBack] = useState<Date | null>(null)
   const [returnStationId, setReturnStationId] = useState('')
   const [returnStationName, setReturnStationName] = useState('')
   const [coveredDistance, setCoveredDistance] = useState(0)
@@ -38,10 +44,10 @@ const NewJourney = () => {
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const data = {
-      departure,
+      departure: dayjs(departure).format('YYYY-MM-DDTHH:mm:ss'),
       departureStationId,
       departureStationName,
-      return: back,
+      return: dayjs(back).format('YYYY-MM-DDTHH:mm:ss'),
       returnStationId,
       returnStationName,
       coveredDistance,
@@ -77,20 +83,15 @@ const NewJourney = () => {
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
-              <TextField
-                required
-                id='departure'
-                name='departure'
-                fullWidth
-                size='small'
-                variant='outlined'
-                type='datetime-local'
-                color='secondary'
-                value={departure}
-                onChange={(e) =>
-                  setDeparture(new Date(e.target.value).toISOString().replace('Z', ''))
-                }
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoItem>
+                  <DateTimePicker
+                    value={departure}
+                    format='YYYY-MM-DD HH:mm:ss'
+                    onChange={(newValue) => setDeparture(newValue)}
+                  />
+                </DemoItem>
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={12} sm={2}>
               <InputLabel
@@ -111,7 +112,6 @@ const NewJourney = () => {
                 size='small'
                 variant='outlined'
                 color='secondary'
-                required
                 fullWidth
                 value={departureStationId}
                 onChange={(e) => setDepartureStationId(e.target.value)}
@@ -130,7 +130,6 @@ const NewJourney = () => {
             </Grid>
             <Grid item xs={12} sm={10}>
               <TextField
-                required
                 id='departureStationName'
                 name='departureStationName'
                 label='Departure Station Name'
@@ -154,19 +153,17 @@ const NewJourney = () => {
               </InputLabel>
             </Grid>
             <Grid item xs={12} sm={10}>
-              <TextField
-                required
-                id='back'
-                name='back'
-                fullWidth
-                size='small'
-                variant='outlined'
-                type='datetime-local'
-                color='secondary'
-                value={back}
-                onChange={(e) => setBack(new Date(e.target.value).toISOString().replace('Z', ''))}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoItem>
+                  <DateTimePicker
+                    value={back}
+                    format='YYYY-MM-DD HH:mm:ss'
+                    onChange={(newValue) => setBack(newValue)}
+                  />
+                </DemoItem>
+              </LocalizationProvider>
             </Grid>
+
             <Grid item xs={12} sm={2}>
               <InputLabel
                 sx={{
@@ -186,7 +183,6 @@ const NewJourney = () => {
                 size='small'
                 variant='outlined'
                 color='secondary'
-                required
                 fullWidth
                 value={returnStationId}
                 onChange={(e) => setReturnStationId(e.target.value)}
@@ -231,7 +227,6 @@ const NewJourney = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                required
                 id='coveredDistance'
                 name='coveredDistance'
                 label='Covered Distance (m)'
@@ -262,7 +257,6 @@ const NewJourney = () => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                required
                 id='duration'
                 name='duration'
                 label='Duration (sec.)'
