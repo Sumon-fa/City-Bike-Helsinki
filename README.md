@@ -33,6 +33,8 @@ City Bike Helsinki is the pre-assignment for Solita Dev Academy Finland 2023. A 
 
 ## Live Demo
 
+The website has been deployed on free services, so it will take some time to load the data.
+
 https://citybikehelsinki.netlify.app
 
 ## Features
