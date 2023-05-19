@@ -17,7 +17,7 @@ where TDto : BaseDTO<TModel>
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
 
-    [HttpPost("new")]
+    [HttpPost("/api/v1/dashboard/[controller]/new")]
     public virtual async Task<ActionResult<TModel>> CreateAsync(TDto request)
     {
         if (!ModelState.IsValid)

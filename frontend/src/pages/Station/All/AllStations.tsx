@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -14,16 +16,17 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
-import { getAllStations } from '../../../redux/methods/stationMethods'
-import { NavLink } from 'react-router-dom'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
+
 import theme from '../../../components/Ui/theme'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'
 import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import Search from '../../../components/Search/Search'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
+
+import { getAllStations } from '../../../redux/methods/stationMethods'
 import { stationActions } from '../../../redux/slices/stationSlice'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 
 enum SortType {
   Asc = 'Asc',
@@ -34,8 +37,9 @@ function AllStations() {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const [sortType, setSortType] = useState<string>(SortType.Desc)
+
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
   const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
@@ -47,6 +51,7 @@ function AllStations() {
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage)
   }
+
   useEffect(() => {
     if (isError) {
       setTimeout(() => {
@@ -61,7 +66,6 @@ function AllStations() {
       pageNumber: page + 1,
       sort: sortType,
     }
-
     dispatch(getAllStations(filter))
   }, [page, searchKeyWord, sortType])
 
@@ -71,6 +75,7 @@ function AllStations() {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
+
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalStations) : 0
 
   return (

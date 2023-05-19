@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+
 import {
   AppBar,
   Link,
@@ -13,14 +15,15 @@ import {
 } from '@mui/material'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer'
 import { Menu } from '@mui/icons-material'
-import theme from '../Ui/theme'
 import { navData } from '../../data/navData'
+
+import theme from '../Ui/theme'
 import { MyStyledIconButton } from './navStyle'
-import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+
   const [openDrawer, setOpenDrawer] = useState(false)
   const [value, setValue] = React.useState(0)
 
@@ -131,4 +134,5 @@ const Navbar = () => {
     </AppBar>
   )
 }
+
 export default Navbar

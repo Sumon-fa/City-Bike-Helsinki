@@ -14,7 +14,7 @@
 
 ​
 
-City Bike Helsinki is a convenient and eco-friendly bike service that allows residents and visitors of Helsinki to easily navigate the city on two wheels. The website listed all the stations and journeys of Helsinki region. You can create journey and station through this website.
+City Bike Helsinki is the pre-assignment for Solita Dev Academy Finland 2023. A convenient and eco-friendly bike service that allows residents and visitors of Helsinki to easily navigate the city on two wheels. The website listed all the stations and journeys of Helsinki region. You can create journey and station, search for a station and navigate through this website.
 
 ## Table of Content
 
@@ -22,8 +22,7 @@ City Bike Helsinki is a convenient and eco-friendly bike service that allows res
 - [Features](#Features)
 - [Prerequisites](#Prerequisites)
 - [Configuration](#Configuration)
-- [Future Work](#Future-Work)
-- [Requirement](#Requirement)
+- [ToDo](#ToDo)
 - [How to run the project](#How-to-run-the-project)
 - [Result](#Result)
 - [Endpoint](#Endpoint)
@@ -40,7 +39,7 @@ https://citybikehelsinki.netlify.app
 - Dashboard
 - Create Journey
 - Create Station
-- Search, Pagination, Order by Column
+- Searching, Pagination, Order by Column
 
 ## Prerequisites
 
@@ -133,7 +132,7 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ### `Journey-Page`
 
-<img src="frontend/src/assets/journey.png" width="375" height="667"/>
+<img  src="frontend/src/assets/journey.png" width="375" height="667"/>
 </br>
 </br>
 journey list for bigger screen

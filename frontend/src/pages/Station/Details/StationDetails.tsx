@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
 import { Container, Link, TableContainer, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
-import { getStationDetails } from '../../../redux/methods/stationMethods'
-import { useParams } from 'react-router-dom'
+
 import { StyledTableRow, StyledTableCell } from '../../../components/Ui/tableStyles'
 import theme from '../../../components/Ui/theme'
-import { stationActions } from '../../../redux/slices/stationSlice'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'
+
+import { getStationDetails } from '../../../redux/methods/stationMethods'
+import { stationActions } from '../../../redux/slices/stationSlice'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 
 function StationDetails() {
   const { stationDetails, isError, isLoading } = useAppSelector((state) => state.station)
-  const dispatch = useAppDispatch()
 
   const params = useParams()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (isError) {

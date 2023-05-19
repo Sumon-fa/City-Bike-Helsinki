@@ -1,6 +1,7 @@
 import React from 'react'
-import { AppBar, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
+
+import { AppBar, Typography } from '@mui/material'
 
 const Footer = () => {
   const { pathname } = useLocation()

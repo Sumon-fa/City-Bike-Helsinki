@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import TextField from '@mui/material/TextField'
 import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
-import { newStation } from '../../../../redux/methods/stationMethods'
+
 import ErrorAlert from '../../../../components/Ui/ErrorAlert'
 import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
+
 import { stationActions } from '../../../../redux/slices/stationSlice'
-import { useNavigate } from 'react-router-dom'
+import { newStation } from '../../../../redux/methods/stationMethods'
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
 
 const NewStation = () => {
   const [id, setId] = useState('')

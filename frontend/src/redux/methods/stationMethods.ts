@@ -38,7 +38,7 @@ export const getStationDetails = createAsyncThunk(
 export const newStation = createAsyncThunk('newStation', async (data: CreateStation, thunk) => {
   try {
     const response: AxiosResponse<NewStation, NewStation> = await axiosInstance.post(
-      '/api/v1/station/new',
+      '/api/v1/dashboard/station/new',
       data
     )
 

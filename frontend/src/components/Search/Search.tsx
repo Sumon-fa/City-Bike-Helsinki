@@ -5,7 +5,7 @@ interface SearchProps {
   setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
-export default function Search({ setSearch }: SearchProps) {
+function Search({ setSearch }: SearchProps) {
   return (
     <TextField
       size='small'
@@ -18,3 +18,5 @@ export default function Search({ setSearch }: SearchProps) {
     />
   )
 }
+
+export default Search

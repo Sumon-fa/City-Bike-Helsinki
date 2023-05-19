@@ -24,7 +24,7 @@ export const getAllJourneys = createAsyncThunk(
 export const newJourney = createAsyncThunk('newJourney', async (journey: CreateJourney, thunk) => {
   try {
     const response: AxiosResponse<Journey, Journey> = await axiosInstance.post(
-      '/api/v1/journey/new',
+      '/api/v1/dashboard/journey/new',
       journey
     )
     return response.data

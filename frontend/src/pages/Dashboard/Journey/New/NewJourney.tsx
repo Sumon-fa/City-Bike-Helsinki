@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import TextField from '@mui/material/TextField'
-import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
-import { newJourney } from '../../../../redux/methods/journeyMethods'
-import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
-import ErrorAlert from '../../../../components/Ui/ErrorAlert'
-import { journeyActions } from '../../../../redux/slices/journeySlice'
 import { useNavigate } from 'react-router-dom'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
+import TextField from '@mui/material/TextField'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoItem } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
 import { DateTimePicker } from '@mui/x-date-pickers'
+import { Box, Button, Grid, InputLabel, Paper, Typography } from '@mui/material'
+
+import CustomDashboard from '../../../../components/CustomDashboard/CustomDashboard'
+import ErrorAlert from '../../../../components/Ui/ErrorAlert'
+
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHook'
+import { newJourney } from '../../../../redux/methods/journeyMethods'
+import { journeyActions } from '../../../../redux/slices/journeySlice'
 
 const NewJourney = () => {
   const [departure, setDeparture] = useState<Date | null>(null)
@@ -25,6 +27,7 @@ const NewJourney = () => {
   const [duration, setDuration] = useState(0)
 
   const { isError, isLoading, isSuccess } = useAppSelector((state) => state.journey)
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

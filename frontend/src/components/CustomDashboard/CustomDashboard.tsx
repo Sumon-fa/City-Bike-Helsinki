@@ -1,4 +1,6 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
+
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -9,10 +11,9 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import { Link } from '@mui/material'
 
 import { dashboardData } from '../../data/dashboardData'
-import { Link } from '@mui/material'
-import { NavLink } from 'react-router-dom'
 
 const drawerWidth = 240
 
@@ -69,4 +70,5 @@ function CustomDashboard({ children }: { children: React.ReactNode }) {
     </Box>
   )
 }
+
 export default CustomDashboard

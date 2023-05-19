@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -13,15 +14,17 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material'
-import { getAllJourneys } from '../../../redux/methods/journeyMethods'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
+
 import theme from '../../../components/Ui/theme'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'
 import Search from '../../../components/Search/Search'
 import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
+
 import { journeyActions } from '../../../redux/slices/journeySlice'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
+import { getAllJourneys } from '../../../redux/methods/journeyMethods'
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 
 enum SortType {
   Asc = 'Asc',
@@ -33,7 +36,9 @@ function AllJourney() {
   const [rowsPerPage, setRowsPerPage] = useState(8)
   const [searchKeyWord, setSearch] = useState('')
   const [sortType, setSortType] = useState<string>(SortType.Desc)
+
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
+
   const { journeys, totalJourneys, isError, isLoading } = useAppSelector((state) => state.journey)
   const dispatch = useAppDispatch()
 
@@ -69,6 +74,7 @@ function AllJourney() {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
+
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalJourneys) : 0
 
   return (
