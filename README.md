@@ -124,9 +124,10 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ## ToDo
 
-- remove duplicate code
+- transform duplicate code into reusable
 - create style file for each component
 - fix unsupported engine warning
+- simplify the error message
 
 ## Result
 
