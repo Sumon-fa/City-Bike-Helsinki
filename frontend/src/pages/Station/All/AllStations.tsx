@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
@@ -56,7 +55,7 @@ function AllStations() {
     if (isError) {
       setTimeout(() => {
         dispatch(stationActions.clearError())
-      }, 1000)
+      }, 500)
     }
   }, [isError])
 
@@ -75,8 +74,6 @@ function AllStations() {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
-
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalStations) : 0
 
   return (
     <Container
@@ -169,11 +166,6 @@ function AllStations() {
                   {!matches && <StyledTableCell align='center'>{s.kapasiteet}</StyledTableCell>}
                 </StyledTableRow>
               ))}
-            {emptyRows > 0 && (
-              <StyledTableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </StyledTableRow>
-            )}
           </TableBody>
           <TableFooter>
             <StyledTableRow>
@@ -182,7 +174,7 @@ function AllStations() {
                 colSpan={5}
                 count={totalStations}
                 rowsPerPage={rowsPerPage}
-                page={page}
+                page={!totalStations || totalStations <= 0 ? 0 : page}
                 SelectProps={{
                   inputProps: {
                     'aria-label': 'rows per page',

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import Paper from '@mui/material/Paper'
@@ -54,7 +53,7 @@ function AllJourney() {
     if (isError) {
       setTimeout(() => {
         dispatch(journeyActions.clearError())
-      }, 1000)
+      }, 500)
     }
   }, [isError])
 
@@ -74,8 +73,6 @@ function AllJourney() {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
-
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalJourneys) : 0
 
   return (
     <Container
@@ -157,11 +154,6 @@ function AllJourney() {
                   {!matches && <StyledTableCell align='center'>{j.duration}</StyledTableCell>}
                 </StyledTableRow>
               ))}
-            {emptyRows > 0 && (
-              <StyledTableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </StyledTableRow>
-            )}
           </TableBody>
           <TableFooter>
             <StyledTableRow>
@@ -170,7 +162,7 @@ function AllJourney() {
                 colSpan={4}
                 count={totalJourneys}
                 rowsPerPage={rowsPerPage}
-                page={page}
+                page={!totalJourneys || totalJourneys <= 0 ? 0 : page}
                 SelectProps={{
                   inputProps: {
                     'aria-label': 'rows per page',
