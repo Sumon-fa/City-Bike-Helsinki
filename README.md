@@ -133,7 +133,9 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ### `Journey-Page`
 
+<div style="text-align:center">
 <img  src="frontend/src/assets/journey.png" width="375" height="667"/>
+</div>
 </br>
 </br>
 journey list for bigger screen
@@ -144,7 +146,9 @@ journey list for bigger screen
 
 ### `Station-Page`
 
+<div style="text-align:center">
 <img src="frontend/src/assets/station.png" width="375" height="667"/>
+</div>
 </br>
 </br>
 station list for big screen
@@ -155,7 +159,9 @@ station list for big screen
 
 ### `Station-Details-Page`
 
+<div style="text-align:center">
 <img src="frontend/src/assets/stationdetails.png" width="375" height="667"/>
+</div>
 </br>
 </br>
 station info in big screen
@@ -181,8 +187,9 @@ station address showing on google map
 
 ### `Drawer`
 
-![result](frontend/src/assets/drawer.png)
-
+<div style="text-align:center">
+<img src="frontend/src/assets/drawer.png" width="375" height="667"/>
+</div>
 ## Endpoint
 
 ```
