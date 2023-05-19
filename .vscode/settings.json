@@ -1,0 +1,9 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true // ESLint auto format on save
+  },
+  "editor.formatOnSave": true, // Prettier auto format on save
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "appService.defaultWebAppToDeploy": "/subscriptions/10d5bb6f-9291-47ab-b6ce-c1048fb33027/resourceGroups/citybikehelsinkiregion/providers/Microsoft.Web/sites/citybikehelsinkiregion",
+  "appService.deploySubpath": "backend\\bin\\Debug\\net6.0\\publish"
+}

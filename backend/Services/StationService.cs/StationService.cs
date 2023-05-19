@@ -16,11 +16,11 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
     {
         var query = _dbContext.Stations.AsQueryable();
 
-        if (!string.IsNullOrEmpty(filter.SearchKeyWord))
+        if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
             query = query.Where(s => s.Nimi
                          .ToLower()
-                         .StartsWith(filter.SearchKeyWord.ToLower()));
+                         .StartsWith(filter.SearchKeyWord.Trim().ToLower()));
         }
 
         var totalItems = await query.CountAsync();

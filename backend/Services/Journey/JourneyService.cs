@@ -21,7 +21,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
         {
             query = query.Where(j => j.DepartureStationName
                          .ToLower()
-                         .StartsWith(filter.SearchKeyWord.Trim()));
+                         .StartsWith(filter.SearchKeyWord.Trim().ToLower()));
         }
 
         query = query.Select(journey => new Journey
