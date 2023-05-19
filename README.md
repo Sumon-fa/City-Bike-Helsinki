@@ -12,7 +12,11 @@
 - Backend: ASP.NET Core, Entity Framework Core, PostgreSQL
 - Devops: Docker, Github Actions, Azure Cloud, Netlify
 
-​
+> This stack provides a powerful and efficient solution for building a scalable system that can handle large datasets.
+> ASP.NET Core is a cross-platform, open-source framework with a vast array of built in libraries.
+> I have selected PostgreSQL for its stability and performance.
+
+</br>
 
 City Bike Helsinki is the pre-assignment for Solita Dev Academy Finland 2023. A convenient and eco-friendly bike service that allows residents and visitors of Helsinki to easily navigate the city on two wheels. The website listed all the stations and journeys of Helsinki region. You can create journey and station, search for a station and navigate through this website.
 
@@ -133,9 +137,7 @@ COPY stations (fid, id, nimi, namn, name, osoite, adress, kaupunki, stad, operaa
 
 ### `Journey-Page`
 
-<div style="text-align:center">
-<img  src="frontend/src/assets/journey.png" width="375" height="667"/>
-</div>
+<div style="text-align:center"><img  src="frontend/src/assets/journey.png" width="375" height="667"/></div>
 </br>
 </br>
 journey list for bigger screen
