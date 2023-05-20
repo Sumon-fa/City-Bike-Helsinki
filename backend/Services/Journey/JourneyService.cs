@@ -15,7 +15,7 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
     public async Task<GetAllResultResponseDTO<Journey>> GetAllAsync(FilterDTO filter)
 
     {
-        var query = _dbContext.Journeys.AsQueryable();
+        var query = _dbContext.Journeys.AsNoTracking().AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
@@ -40,11 +40,22 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
         var totalItems = await query.CountAsync();
 
         var result = await query
-            .AsNoTracking()
-            .OrderByDescending(s => s.Departure)
+            .OrderByDescending(j => j.Departure)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
-            .ToListAsync();
+            .Select(journey => new Journey
+            {
+                Id = journey.Id,
+                Departure = journey.Departure,
+                Return = journey.Return,
+                DepartureStationId = journey.DepartureStationId,
+                DepartureStationName = journey.DepartureStationName,
+                ReturnStationId = journey.ReturnStationId,
+                ReturnStationName = journey.ReturnStationName,
+                CoveredDistance = journey.CoveredDistance / 1000,
+                Duration = journey.Duration / 60
+            })
+           .ToListAsync();
 
         switch (filter.Sort)
         {
@@ -52,9 +63,6 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
                 result = result.OrderBy(j => j.Departure).ToList();
                 break;
             case FilterDTO.SortType.Desc:
-                result = result.OrderByDescending(j => j.Departure).ToList();
-                break;
-            default:
                 result = result.OrderByDescending(j => j.Departure).ToList();
                 break;
         }

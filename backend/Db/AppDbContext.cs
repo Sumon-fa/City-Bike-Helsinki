@@ -33,9 +33,9 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Journey>()
               .HasIndex(j => new
               {
-                j.DepartureStationName,
-                j.Departure
-              } );
+                  j.DepartureStationName,
+                  j.Departure
+              });
 
         modelBuilder.Entity<Journey>()
               .Property(j => j.Id)

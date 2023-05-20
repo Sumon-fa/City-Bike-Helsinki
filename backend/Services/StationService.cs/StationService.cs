@@ -14,7 +14,7 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
 
     public async Task<GetAllResultResponseDTO<Station>> GetAllAsync(FilterDTO filter)
     {
-        var query = _dbContext.Stations.AsQueryable();
+        var query = _dbContext.Stations.AsNoTracking().AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
@@ -26,7 +26,6 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
         var totalItems = await query.CountAsync();
 
         var result = await query
-            .AsNoTracking()
             .OrderByDescending(s => s.FID)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
@@ -35,13 +34,10 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
         switch (filter.Sort)
         {
             case FilterDTO.SortType.Asc:
-                result = result.OrderBy(s => s.Nimi).ToList();
+                result = result.OrderBy(s => s.FID).ToList();
                 break;
             case FilterDTO.SortType.Desc:
-                result = result.OrderByDescending(s => s.Nimi).ToList();
-                break;
-            default:
-                result = result.OrderByDescending(s => s.Nimi).ToList();
+                result = result.OrderByDescending(s => s.FID).ToList();
                 break;
         }
 
