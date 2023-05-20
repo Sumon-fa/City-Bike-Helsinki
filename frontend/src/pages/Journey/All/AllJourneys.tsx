@@ -125,8 +125,9 @@ function AllJourney() {
           width: '100%',
           overflow: 'hidden',
           [theme.breakpoints.down('sm')]: {
+            marginTop: '0',
             width: '100%',
-            marginBottom: '40px',
+            marginBottom: '9%',
           },
         }}
       >

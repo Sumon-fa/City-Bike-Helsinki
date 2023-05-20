@@ -31,22 +31,21 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Journey>()
-                    .HasIndex(j => new
-                    {
-                        j.Departure,
-                        j.DepartureStationId,
-                        j.DepartureStationName,
-                        j.Return,
-                        j.ReturnStationId,
-                        j.ReturnStationName
-                    });
-
-        modelBuilder.Entity<Station>()
-                    .HasIndex(s => s.ID).IsUnique();
+              .HasIndex(j => new
+              {
+                j.DepartureStationName,
+                j.Departure
+              } );
 
         modelBuilder.Entity<Journey>()
-                    .Property(j => j.Id)
-                    .HasDefaultValueSql("gen_random_uuid()");
+              .Property(j => j.Id)
+              .HasDefaultValueSql("gen_random_uuid()");
+
+        modelBuilder.Entity<Station>()
+              .HasIndex(s => s.ID).IsUnique();
+
+        modelBuilder.Entity<Station>()
+              .HasIndex(s => s.Nimi);
     }
 
     public DbSet<Journey> Journeys { get; set; } = null!;

@@ -107,16 +107,16 @@ function AllStations() {
           '& .MuiTextField-root': {
             mb: 1,
             width: '20ch',
-            marginTop: '8%',
           },
           textAlign: 'end',
           marginLeft: '0',
+          marginTop: '8%',
 
           [theme.breakpoints.down('sm')]: {
             '& .MuiTextField-root': { mb: 1, width: '13ch', marginTop: '8%' },
             textAlign: 'end',
             marginLeft: '0',
-            marginTop: '11%',
+            marginTop: '15%',
           },
         }}
       >
@@ -171,7 +171,7 @@ function AllStations() {
             <StyledTableRow>
               <TablePagination
                 rowsPerPageOptions={[8]}
-                colSpan={5}
+                colSpan={4}
                 count={totalStations}
                 rowsPerPage={rowsPerPage}
                 page={!totalStations || totalStations <= 0 ? 0 : page}
