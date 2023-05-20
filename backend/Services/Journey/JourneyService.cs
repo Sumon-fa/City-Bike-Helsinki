@@ -24,19 +24,6 @@ public class JourneyService : BaseService<Journey, JourneyDTO>, IJourneyService
                          .StartsWith(filter.SearchKeyWord.Trim().ToLower()));
         }
 
-        query = query.Select(journey => new Journey
-        {
-            Id = journey.Id,
-            Departure = journey.Departure,
-            Return = journey.Return,
-            DepartureStationId = journey.DepartureStationId,
-            DepartureStationName = journey.DepartureStationName,
-            ReturnStationId = journey.ReturnStationId,
-            ReturnStationName = journey.ReturnStationName,
-            CoveredDistance = journey.CoveredDistance / 1000,
-            Duration = journey.Duration / 60
-        });
-
         var totalItems = await query.CountAsync();
 
         var result = await query
