@@ -103,12 +103,18 @@ function AllJourney() {
 
       <Box
         sx={{
-          '& .MuiTextField-root': { mb: 1, width: '20ch' },
+          '& .MuiTextField-root': {
+            mb: 1,
+            width: '20ch',
+          },
           textAlign: 'end',
           marginLeft: '0',
           marginTop: '8%',
           [theme.breakpoints.down('sm')]: {
-            '& .MuiTextField-root': { mb: 1, width: '13ch' },
+            '& .MuiTextField-root': {
+              mb: 1,
+              width: '13ch',
+            },
             textAlign: 'end',
             marginLeft: '0',
             marginTop: '15%',

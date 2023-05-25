@@ -64,4 +64,5 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     </Box>
   )
 }
+
 export default TablePaginationActions

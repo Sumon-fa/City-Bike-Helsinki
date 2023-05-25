@@ -19,8 +19,8 @@ public class StationService : BaseService<Station, StationDTO>, IStationService
         if (!string.IsNullOrWhiteSpace(filter.SearchKeyWord))
         {
             query = query.Where(s => s.Nimi
-                         .ToLower()
-                         .StartsWith(filter.SearchKeyWord.Trim().ToLower()));
+                    .ToLower()
+                    .StartsWith(filter.SearchKeyWord.Trim().ToLower()));
         }
 
         var totalItems = await query.CountAsync();

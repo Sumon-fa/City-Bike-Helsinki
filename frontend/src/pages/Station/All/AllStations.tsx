@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -19,13 +18,14 @@ import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import theme from '../../../components/Ui/theme'
 import ErrorAlert from '../../../components/Ui/ErrorAlert'
-import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import Search from '../../../components/Search/Search'
+import { StyledTableCell, StyledTableRow } from '../../../components/Ui/tableStyles'
 import TablePaginationActions from '../../../components/Ui/TablePaginationActions'
 
+import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
 import { getAllStations } from '../../../redux/methods/stationMethods'
 import { stationActions } from '../../../redux/slices/stationSlice'
-import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook'
+import { NavLink } from 'react-router-dom'
 
 enum SortType {
   Asc = 'Asc',
@@ -40,7 +40,7 @@ function AllStations() {
 
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const { stations, totalStations, isLoading, isError } = useAppSelector((state) => state.station)
+  const { stations, totalStations, isError, isLoading } = useAppSelector((state) => state.station)
   const dispatch = useAppDispatch()
 
   const SortTypeHandler = () => {
@@ -65,6 +65,7 @@ function AllStations() {
       pageNumber: page + 1,
       sort: sortType,
     }
+
     dispatch(getAllStations(filter))
   }, [page, searchKeyWord, sortType])
 
@@ -79,10 +80,11 @@ function AllStations() {
     <Container
       sx={{
         marginTop: '18%',
-
+        minHeight: '644px',
         [theme.breakpoints.up('sm')]: {
           marginTop: '6%',
           width: '60%',
+          minHeight: '800px',
         },
       }}
     >
@@ -111,9 +113,11 @@ function AllStations() {
           textAlign: 'end',
           marginLeft: '0',
           marginTop: '8%',
-
           [theme.breakpoints.down('sm')]: {
-            '& .MuiTextField-root': { mb: 1, width: '13ch', marginTop: '8%' },
+            '& .MuiTextField-root': {
+              mb: 1,
+              width: '13ch',
+            },
             textAlign: 'end',
             marginLeft: '0',
             marginTop: '15%',
@@ -122,6 +126,7 @@ function AllStations() {
       >
         <Search setSearch={setSearch} />
       </Box>
+
       <TableContainer
         component={Paper}
         sx={{
